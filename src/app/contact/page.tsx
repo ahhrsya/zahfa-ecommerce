@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { prisma } from "@/lib/prisma"
 import { Phone, Mail, MapPin, Clock } from "lucide-react"
 

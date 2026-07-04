@@ -9,6 +9,8 @@ interface Props {
 
 const ITEMS_PER_PAGE = 12
 
+export const dynamic = 'force-dynamic'
+
 export default async function ProductsPage({ searchParams }: Props) {
   const sp = await searchParams
   const search =

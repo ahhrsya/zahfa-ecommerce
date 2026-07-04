@@ -2,17 +2,21 @@ import { PrismaClient } from "@prisma/client"
 import { PrismaLibSql } from "@prisma/adapter-libsql"
 import path from "path"
 
-const dbPath = path.resolve(process.cwd(), "dev.db")
+const isDev = process.env.NODE_ENV !== "production"
 
-const adapter = new PrismaLibSql({
-  url: `file://${dbPath}`,
-})
+function createAdapter() {
+  if (isDev || !process.env.DATABASE_URL) {
+    const dbPath = path.resolve(process.cwd(), "dev.db")
+    return new PrismaLibSql({ url: `file://${dbPath}` })
+  }
+  return new PrismaLibSql({ url: process.env.DATABASE_URL })
+}
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
 }
 
 export const prisma =
-  globalForPrisma.prisma ?? new PrismaClient({ adapter })
+  globalForPrisma.prisma ?? new PrismaClient({ adapter: createAdapter() })
 
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma
+if (isDev) globalForPrisma.prisma = prisma

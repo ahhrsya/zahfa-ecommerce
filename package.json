@@ -7,7 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "seed": "npx tsx prisma/seed.ts"
+    "seed": "npx tsx prisma/seed.ts",
+    "pages:build": "npx @cloudflare/next-on-pages",
+    "pages:deploy": "npm run pages:build && wrangler pages deploy",
+    "pages:deploy:cms": "npm run pages:build:cms && wrangler pages deploy --project-name zahfa-cms",
+    "cf:deploy": "npm run pages:build && npx wrangler pages deploy --project-name zahfa-store"
   },
   "prisma": {
     "seed": "npx tsx prisma/seed.ts"
@@ -26,6 +30,7 @@
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.16",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

@@ -5,6 +5,8 @@ import { formatRupiah } from "@/lib/utils"
 import ProductCard from "@/components/ProductCard"
 import HeroSlider from "@/components/HeroSlider"
 
+export const dynamic = 'force-dynamic'
+
 export default async function HomePage() {
   const [banners, categories, latestProducts, featuredProducts] = await Promise.all([
     prisma.banner.findMany({
