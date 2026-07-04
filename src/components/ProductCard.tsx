@@ -234,7 +234,7 @@ export default function ProductCard({
               {formatRupiah(product.price)}
             </span>
             {product.compareAtPrice && (
-              <span className="text-xs text-stone-400 line-through">
+              <span className="text-xs text-red-400 line-through">
                 {formatRupiah(product.compareAtPrice)}
               </span>
             )}

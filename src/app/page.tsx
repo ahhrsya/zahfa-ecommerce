@@ -131,20 +131,20 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Produk Terpopuler — Carousel */}
+      {/* Produk Terpopuler */}
       {featuredProducts.length > 0 && (
         <section className="py-16">
-          <div className="max-w-7xl mx-auto px-6 text-center mb-10">
-            <h2 className="text-2xl md:text-3xl text-stone-700">Produk Terpopuler</h2>
-            <p className="text-stone-400 mt-1.5 text-sm">Pilihan terbaik yang banyak diminati</p>
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-10">
+              <h2 className="text-2xl md:text-3xl text-stone-700">Produk Terpopuler</h2>
+              <p className="text-stone-400 mt-1.5 text-sm">Pilihan terbaik yang banyak diminati</p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6">
+              {featuredProducts.map((product) => (
+                <ProductCard key={product.id} product={product} isBest />
+              ))}
+            </div>
           </div>
-          <DragScrollCarousel gap={20}>
-            {featuredProducts.map((product) => (
-              <div key={product.id} style={{ scrollSnapAlign: "start", width: 260 }}>
-                <ProductCard product={product} isBest />
-              </div>
-            ))}
-          </DragScrollCarousel>
         </section>
       )}
 
