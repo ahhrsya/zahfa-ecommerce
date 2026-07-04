@@ -46,7 +46,7 @@ export default function HeroSlider({ banners }: { banners: Banner[] }) {
               src={banner.image}
               alt={banner.title || "Banner"}
               fill
-              className="object-contain"
+              className="object-cover"
               sizes="100vw"
               priority={i === 0}
             />
