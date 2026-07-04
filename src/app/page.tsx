@@ -1,65 +1,152 @@
-import Image from "next/image";
+import Link from "next/link"
+import Image from "next/image"
+import { prisma } from "@/lib/prisma"
+import { formatRupiah } from "@/lib/utils"
+import ProductCard from "@/components/ProductCard"
+import HeroSlider from "@/components/HeroSlider"
 
-export default function Home() {
+export default async function HomePage() {
+  const [banners, categories, latestProducts, featuredProducts] = await Promise.all([
+    prisma.banner.findMany({
+      where: { isActive: true, type: "hero" },
+      orderBy: { sortOrder: "asc" },
+    }),
+    prisma.category.findMany({
+      where: { isActive: true },
+      orderBy: { sortOrder: "asc" },
+    }),
+    prisma.product.findMany({
+      where: { isActive: true },
+      orderBy: { createdAt: "desc" },
+      take: 8,
+      include: {
+        images: { orderBy: { sortOrder: "asc" }, take: 1 },
+        category: true,
+      },
+    }),
+    prisma.product.findMany({
+      where: { isActive: true, isFeatured: true },
+      take: 4,
+      include: {
+        images: { orderBy: { sortOrder: "asc" }, take: 1 },
+        category: true,
+      },
+    }),
+  ])
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div>
+      {/* Hero Slider */}
+      <HeroSlider banners={banners} />
+
+      {/* Kategori Populer */}
+      <section className="py-16 max-w-7xl mx-auto px-6">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl md:text-3xl text-stone-700">Kategori Populer</h2>
+          <p className="text-stone-400 mt-2 text-sm">Temukan koleksi busana muslimah sesuai kebutuhan Anda</p>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
+          {categories.map((cat) => (
+            <Link
+              key={cat.id}
+              href={`/categories/${cat.slug}`}
+              className="group flex flex-col items-center gap-3 p-4 rounded-sm border border-stone-200 hover:border-stone-300 transition-colors"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              <div className="w-16 h-16 rounded-full bg-stone-100 flex items-center justify-center overflow-hidden">
+                {cat.image ? (
+                  <Image src={cat.image} alt={cat.name} width={64} height={64} className="object-cover w-full h-full" />
+                ) : (
+                  <svg className="w-6 h-6 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                  </svg>
+                )}
+              </div>
+              <span className="text-xs font-medium text-stone-500 group-hover:text-stone-700 transition-colors uppercase tracking-wider">
+                {cat.name}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Produk Terbaru */}
+      <section className="py-16 bg-stone-50/40">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <h2 className="text-2xl md:text-3xl text-stone-700">Produk Terbaru</h2>
+              <p className="text-stone-400 mt-1.5 text-sm">Koleksi terbaru yang baru saja tiba</p>
+            </div>
+            <Link
+              href="/products"
+              className="text-sm text-stone-400 hover:text-stone-600 transition-colors"
             >
-              Learning
-            </a>{" "}
-            center.
+              Lihat Semua &rarr;
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6">
+            {latestProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Produk Terpopuler */}
+      {featuredProducts.length > 0 && (
+        <section className="py-16 max-w-7xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl text-stone-700">Produk Terpopuler</h2>
+            <p className="text-stone-400 mt-1.5 text-sm">Pilihan terbaik yang banyak diminati</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6">
+            {featuredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Banner Promo */}
+      <section className="py-16 px-6">
+        <div className="max-w-7xl mx-auto relative rounded-sm overflow-hidden bg-gradient-to-r from-stone-800 to-stone-700 aspect-[21/7] flex items-center">
+          <div className="relative z-10 px-10 md:px-16 text-white">
+            <p className="text-xs uppercase tracking-widest text-stone-300 mb-2">Koleksi Spesial</p>
+            <h2 className="text-3xl md:text-5xl text-white mb-3">Koleksi Ramadan</h2>
+            <p className="text-base md:text-lg text-stone-300 mb-5">Dapatkan diskon spesial hingga 50%</p>
+            <Link
+              href="/products"
+              className="inline-block px-6 py-2.5 bg-white text-stone-800 font-medium text-sm tracking-wider uppercase hover:bg-stone-100 transition-colors"
+            >
+              Belanja Sekarang
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter */}
+      <section className="py-20 px-6">
+        <div className="max-w-xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl text-stone-700">Dapatkan Info Terbaru</h2>
+          <p className="text-stone-400 mt-2 mb-8 text-sm">
+            Berlangganan newsletter untuk mendapatkan promo dan koleksi terbaru dari Zahfa
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+          <form className="flex gap-3 max-w-md mx-auto">
+            <input
+              type="email"
+              placeholder="Masukkan email Anda"
+              className="flex-1 px-4 py-3 border border-stone-200 bg-transparent text-sm text-stone-600 placeholder-stone-300 focus:outline-none focus:border-stone-400 transition-colors"
+              required
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <button
+              type="submit"
+              className="px-6 py-3 bg-stone-800 text-white text-sm font-medium uppercase tracking-wider hover:bg-stone-700 transition-colors"
+            >
+              Subscribe
+            </button>
+          </form>
         </div>
-      </main>
+      </section>
     </div>
-  );
+  )
 }

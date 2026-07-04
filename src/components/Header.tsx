@@ -1,0 +1,224 @@
+"use client"
+
+import { useState, useEffect } from "react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { Search, ShoppingBag, Heart, Menu, X, ChevronDown } from "lucide-react"
+
+type Category = {
+  id: string
+  name: string
+  slug: string
+}
+
+export default function Header({ categories }: { categories: Category[] }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
+  const [cartCount, setCartCount] = useState(0)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const router = useRouter()
+
+  useEffect(() => {
+    const count = localStorage.getItem("zahfa_cart_count")
+    if (count) setCartCount(parseInt(count, 10))
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === "zahfa_cart_count") {
+        setCartCount(parseInt(e.newValue || "0", 10))
+      }
+    }
+    window.addEventListener("storage", handleStorage)
+    return () => window.removeEventListener("storage", handleStorage)
+  }, [])
+
+  function handleSearch(e: React.FormEvent) {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
+      setSearchQuery("")
+      setSearchOpen(false)
+    }
+  }
+
+  return (
+    <header className="bg-white border-b border-stone-200">
+      {/* Top Bar */}
+      <div className="flex items-center justify-between px-6 py-5 max-w-7xl mx-auto">
+        <button
+          className="lg:hidden p-2 text-stone-500 hover:text-stone-800"
+          onClick={() => setMobileMenuOpen(true)}
+          aria-label="Buka menu"
+        >
+          <Menu className="w-5 h-5" />
+        </button>
+
+        <Link href="/" className="font-heading text-2xl tracking-wide text-stone-900">
+          Zahfa
+        </Link>
+
+        <form onSubmit={handleSearch} className="hidden lg:flex flex-1 max-w-xs mx-8">
+          <div className="relative w-full">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Cari produk..."
+              className="w-full pl-3 pr-9 py-1.5 border-b border-stone-300 bg-transparent text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:border-stone-900"
+            />
+            <button
+              type="submit"
+              className="absolute right-1 top-1/2 -translate-y-1/2 p-1 text-stone-400 hover:text-stone-800"
+              aria-label="Cari"
+            >
+              <Search className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </form>
+
+        <div className="flex items-center gap-1">
+          <button
+            className="lg:hidden p-2 text-stone-500 hover:text-stone-800"
+            onClick={() => setSearchOpen(!searchOpen)}
+            aria-label="Cari"
+          >
+            <Search className="w-5 h-5" />
+          </button>
+
+          <Link href="/wishlist" className="p-2 text-stone-500 hover:text-stone-800" aria-label="Wishlist">
+            <Heart className="w-5 h-5" />
+          </Link>
+
+          <Link href="/cart" className="relative p-2 text-stone-500 hover:text-stone-800" aria-label="Keranjang">
+            <ShoppingBag className="w-5 h-5" />
+            {cartCount > 0 && (
+              <span className="absolute -top-0.5 -right-0.5 bg-stone-900 text-white text-[10px] font-medium rounded-full w-4 h-4 flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
+          </Link>
+        </div>
+      </div>
+
+      {/* Mobile Search Bar */}
+      {searchOpen && (
+        <div className="lg:hidden px-6 pb-5">
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Cari produk..."
+              className="w-full px-0 py-2 border-b border-stone-300 bg-transparent text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:border-stone-900"
+              autoFocus
+            />
+          </form>
+        </div>
+      )}
+
+      {/* Desktop Navigation */}
+      <nav className="hidden lg:flex border-t border-stone-100">
+        <div className="flex items-center justify-center gap-10 py-3 max-w-7xl mx-auto">
+          <div
+            className="relative"
+            onMouseEnter={() => setDropdownOpen(true)}
+            onMouseLeave={() => setDropdownOpen(false)}
+          >
+            <button className="flex items-center gap-1 text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
+              Koleksi
+              <ChevronDown className="w-3 h-3" />
+            </button>
+            {dropdownOpen && categories.length > 0 && (
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-52 bg-white shadow-md border border-stone-200 py-2 z-50">
+                {categories.map((cat) => (
+                  <Link
+                    key={cat.id}
+                    href={`/categories/${cat.slug}`}
+                    className="block px-5 py-2.5 text-xs uppercase tracking-wider text-stone-600 hover:text-stone-900 transition-colors"
+                  >
+                    {cat.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <Link href="/brand" className="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
+            Brand
+          </Link>
+          <Link href="/about" className="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
+            Tentang Kami
+          </Link>
+          <Link href="/contact" className="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
+            Kontak
+          </Link>
+        </div>
+      </nav>
+
+      {/* Mobile Sidebar */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <div
+            className="fixed inset-0 bg-black/30"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+
+          <div className="fixed top-0 left-0 bottom-0 w-72 bg-white shadow-xl z-50 flex flex-col">
+            <div className="flex items-center justify-between px-6 py-5 border-b border-stone-100">
+              <span className="font-heading text-xl tracking-wide text-stone-900">Zahfa</span>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 text-stone-500 hover:text-stone-800"
+                aria-label="Tutup menu"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <nav className="flex-1 overflow-y-auto py-6">
+              <div className="px-6 mb-4">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400 mb-3">Koleksi</p>
+                {categories.map((cat) => (
+                  <Link
+                    key={cat.id}
+                    href={`/categories/${cat.slug}`}
+                    className="block py-2.5 text-sm text-stone-700 hover:text-stone-900 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {cat.name}
+                  </Link>
+                ))}
+              </div>
+
+              <hr className="mx-6 my-4 border-stone-100" />
+
+              <div className="px-6 space-y-1">
+                <Link
+                  href="/brand"
+                  className="block py-2.5 text-sm text-stone-700 hover:text-stone-900 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Brand
+                </Link>
+                <Link
+                  href="/about"
+                  className="block py-2.5 text-sm text-stone-700 hover:text-stone-900 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Tentang Kami
+                </Link>
+                <Link
+                  href="/contact"
+                  className="block py-2.5 text-sm text-stone-700 hover:text-stone-900 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Kontak
+                </Link>
+              </div>
+            </nav>
+          </div>
+        </div>
+      )}
+    </header>
+  )
+}
