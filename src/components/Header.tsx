@@ -17,20 +17,49 @@ export default function Header({ categories }: { categories: Category[] }) {
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const [cartCount, setCartCount] = useState(0)
+  const [wishlistCount, setWishlistCount] = useState(0)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const router = useRouter()
 
-  useEffect(() => {
+  function loadCartCount() {
     const count = localStorage.getItem("zahfa_cart_count")
-    if (count) setCartCount(parseInt(count, 10))
+    setCartCount(count ? parseInt(count, 10) : 0)
+  }
+
+  function loadWishlistCount() {
+    const saved = localStorage.getItem("wishlist")
+    if (saved) {
+      try {
+        const items: unknown[] = JSON.parse(saved)
+        setWishlistCount(items.length)
+      } catch {
+        setWishlistCount(0)
+      }
+    } else {
+      setWishlistCount(0)
+    }
+  }
+
+  useEffect(() => {
+    loadCartCount()
+    loadWishlistCount()
 
     const handleStorage = (e: StorageEvent) => {
       if (e.key === "zahfa_cart_count") {
-        setCartCount(parseInt(e.newValue || "0", 10))
+        loadCartCount()
+      }
+      if (e.key === "wishlist") {
+        loadWishlistCount()
       }
     }
+    const handleWishlistUpdate = () => loadWishlistCount()
+
     window.addEventListener("storage", handleStorage)
-    return () => window.removeEventListener("storage", handleStorage)
+    window.addEventListener("wishlist-updated", handleWishlistUpdate)
+    return () => {
+      window.removeEventListener("storage", handleStorage)
+      window.removeEventListener("wishlist-updated", handleWishlistUpdate)
+    }
   }, [])
 
   function handleSearch(e: React.FormEvent) {
@@ -121,8 +150,13 @@ export default function Header({ categories }: { categories: Category[] }) {
             <Search className="w-5 h-5" />
           </button>
 
-          <Link href="/wishlist" className="p-3 text-stone-500 hover:text-stone-800" aria-label="Wishlist">
+          <Link href="/wishlist" className="relative p-3 text-stone-500 hover:text-stone-800" aria-label="Wishlist">
             <Heart className="w-5 h-5" />
+            {wishlistCount > 0 && (
+              <span className="absolute -top-0.5 -right-0.5 bg-stone-900 text-white text-[10px] font-medium rounded-full w-4 h-4 flex items-center justify-center">
+                {wishlistCount}
+              </span>
+            )}
           </Link>
 
           <Link href="/cart" className="relative p-3 text-stone-500 hover:text-stone-800" aria-label="Keranjang">
