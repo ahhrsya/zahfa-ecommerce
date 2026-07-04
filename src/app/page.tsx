@@ -120,8 +120,8 @@ export default async function HomePage() {
 
       {/* Produk Terpopuler — Carousel */}
       {featuredProducts.length > 0 && (
-        <section className="py-16 max-w-7xl mx-auto px-6">
-          <div className="text-center mb-10">
+        <section className="py-16">
+          <div className="max-w-7xl mx-auto px-6 text-center mb-10">
             <h2 className="text-2xl md:text-3xl text-stone-700">Produk Terpopuler</h2>
             <p className="text-stone-400 mt-1.5 text-sm">Pilihan terbaik yang banyak diminati</p>
           </div>
