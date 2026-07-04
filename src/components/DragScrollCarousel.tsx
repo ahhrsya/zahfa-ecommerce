@@ -72,26 +72,7 @@ export default function DragScrollCarousel({ children, gap = 16 }: Props) {
   }
 
   return (
-    <div className="relative group">
-      {canScrollLeft && (
-        <button
-          onClick={() => scrollTo("left")}
-          className="absolute -left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 flex items-center justify-center bg-white/95 hover:bg-white shadow-md rounded-full transition-all opacity-0 group-hover:opacity-100"
-          aria-label="Geser kiri"
-        >
-          <ChevronLeft className="w-4 h-4 text-stone-600" />
-        </button>
-      )}
-      {canScrollRight && (
-        <button
-          onClick={() => scrollTo("right")}
-          className="absolute -right-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 flex items-center justify-center bg-white/95 hover:bg-white shadow-md rounded-full transition-all opacity-0 group-hover:opacity-100"
-          aria-label="Geser kanan"
-        >
-          <ChevronRight className="w-4 h-4 text-stone-600" />
-        </button>
-      )}
-
+    <div className="group">
       <div
         ref={ref}
         onMouseDown={handleMouseDown}
@@ -108,6 +89,33 @@ export default function DragScrollCarousel({ children, gap = 16 }: Props) {
         }}
       >
         {children}
+      </div>
+
+      <div className="flex items-center justify-center gap-3 mt-6">
+        <button
+          onClick={() => scrollTo("left")}
+          disabled={!canScrollLeft}
+          className={`w-9 h-9 flex items-center justify-center rounded-full border transition-all ${
+            canScrollLeft
+              ? "bg-white border-stone-300 text-stone-600 hover:bg-stone-900 hover:text-white hover:border-stone-900 shadow-sm"
+              : "bg-stone-100 border-stone-200 text-stone-300 cursor-not-allowed"
+          }`}
+          aria-label="Geser kiri"
+        >
+          <ChevronLeft className="w-4 h-4" />
+        </button>
+        <button
+          onClick={() => scrollTo("right")}
+          disabled={!canScrollRight}
+          className={`w-9 h-9 flex items-center justify-center rounded-full border transition-all ${
+            canScrollRight
+              ? "bg-white border-stone-300 text-stone-600 hover:bg-stone-900 hover:text-white hover:border-stone-900 shadow-sm"
+              : "bg-stone-100 border-stone-200 text-stone-300 cursor-not-allowed"
+          }`}
+          aria-label="Geser kanan"
+        >
+          <ChevronRight className="w-4 h-4" />
+        </button>
       </div>
     </div>
   )
