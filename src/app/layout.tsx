@@ -26,11 +26,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const categories = await prisma.category.findMany({
-    where: { isActive: true },
-    orderBy: { sortOrder: "asc" },
-    select: { id: true, name: true, slug: true },
-  })
+  let categories: { id: string; name: string; slug: string }[] = []
+  try {
+    categories = await prisma.category.findMany({
+      where: { isActive: true },
+      orderBy: { sortOrder: "asc" },
+      select: { id: true, name: true, slug: true },
+    })
+  } catch {} // graceful fallback for build time
 
   return (
     <html lang="id" className={`${inter.variable} ${playfair.variable} h-full antialiased`}>

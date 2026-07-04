@@ -1,11 +1,22 @@
-import { PrismaClient } from "@prisma/client"
-import { PrismaLibSql } from "@prisma/adapter-libsql"
 import { hash } from "bcryptjs"
-import path from "path"
 
-const dbPath = path.resolve(process.cwd(), "dev.db")
-const adapter = new PrismaLibSql({ url: `file://${dbPath}` })
-const prisma = new PrismaClient({ adapter })
+let prisma: any
+
+if (process.env.DATABASE_URL) {
+  const { PrismaClient } = await import("@prisma/client")
+  const { PrismaNeon } = await import("@prisma/adapter-neon")
+  const { Pool } = await import("@neondatabase/serverless")
+  const pool = new Pool({ connectionString: process.env.DATABASE_URL })
+  const adapter = new PrismaNeon(pool)
+  prisma = new PrismaClient({ adapter })
+} else {
+  const { PrismaClient } = await import("@prisma/client")
+  const { PrismaLibSql } = await import("@prisma/adapter-libsql")
+  const path = await import("path")
+  const dbPath = path.resolve(process.cwd(), "dev.db")
+  const adapter = new PrismaLibSql({ url: `file://${dbPath}` })
+  prisma = new PrismaClient({ adapter })
+}
 
 async function main() {
   // 1. Settings
