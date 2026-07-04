@@ -55,7 +55,7 @@ export default function Header({ categories }: { categories: Category[] }) {
         </button>
 
         <Link href="/" className="shrink-0">
-          <Image src="/logo.png" alt="Zahfa" width={140} height={44} className="h-11 w-auto" priority />
+          <Image src="/logo.png" alt="Zahfa" width={180} height={56} className="h-14 w-auto" priority />
         </Link>
 
         <form onSubmit={handleSearch} className="hidden lg:flex flex-1 max-w-xs mx-8">
@@ -168,7 +168,7 @@ export default function Header({ categories }: { categories: Category[] }) {
 
           <div className="fixed top-0 left-0 bottom-0 w-72 bg-white shadow-xl z-50 flex flex-col">
             <div className="flex items-center justify-between px-6 py-5 border-b border-stone-100">
-              <Image src="/logo.png" alt="Zahfa" width={120} height={38} className="h-9 w-auto" />
+              <Image src="/logo.png" alt="Zahfa" width={150} height={46} className="h-11 w-auto" />
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 className="p-3 text-stone-500 hover:text-stone-800"
