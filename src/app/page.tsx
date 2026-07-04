@@ -65,21 +65,31 @@ export default async function HomePage() {
             <Link
               key={cat.id}
               href={`/categories/${cat.slug}`}
-              className="group flex flex-col items-center gap-3 p-4 rounded-sm border border-stone-200 hover:border-stone-300 transition-colors shrink-0"
-              style={{ scrollSnapAlign: "start", width: 140 }}
+              className="group relative shrink-0 overflow-hidden rounded-2xl transition-transform duration-300 hover:-translate-y-1"
+              style={{ scrollSnapAlign: "start", width: 200, aspectRatio: "3 / 4" }}
             >
-              <div className="w-16 h-16 rounded-full bg-stone-100 flex items-center justify-center overflow-hidden">
-                {cat.image ? (
-                  <Image src={cat.image} alt={cat.name} width={64} height={64} className="object-cover w-full h-full" />
-                ) : (
-                  <svg className="w-6 h-6 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {cat.image ? (
+                <Image
+                  src={cat.image}
+                  alt={cat.name}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="200px"
+                />
+              ) : (
+                <div className="absolute inset-0 bg-stone-200 flex items-center justify-center">
+                  <svg className="w-10 h-10 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                   </svg>
-                )}
+                </div>
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-4">
+                <h3 className="text-white text-lg font-semibold tracking-wide">{cat.name}</h3>
+                <p className="text-white/70 text-xs mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  Lihat koleksi &rarr;
+                </p>
               </div>
-              <span className="text-xs font-medium text-stone-500 group-hover:text-stone-700 transition-colors uppercase tracking-wider text-center">
-                {cat.name}
-              </span>
             </Link>
           ))}
         </DragScrollCarousel>
