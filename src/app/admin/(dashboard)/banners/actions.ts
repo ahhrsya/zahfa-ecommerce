@@ -19,6 +19,7 @@ export async function createBanner(formData: FormData) {
   const image = await uploadFile(file, "banners")
   await prisma.banner.create({ data: { title: title || null, subtitle: subtitle || null, image, link: link || null, type, isActive, sortOrder } })
   revalidatePath("/admin/banners")
+  revalidatePath("/", "layout")
   redirect("/admin/banners")
 }
 
@@ -45,6 +46,7 @@ export async function updateBanner(id: string, formData: FormData) {
     data: { title: title || null, subtitle: subtitle || null, image, link: link || null, type, isActive, sortOrder },
   })
   revalidatePath("/admin/banners")
+  revalidatePath("/", "layout")
   redirect("/admin/banners")
 }
 
@@ -53,4 +55,5 @@ export async function deleteBanner(id: string) {
   if (banner?.image) await deleteFile(banner.image)
   await prisma.banner.delete({ where: { id } })
   revalidatePath("/admin/banners")
+  revalidatePath("/", "layout")
 }

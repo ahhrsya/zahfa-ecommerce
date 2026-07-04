@@ -1,12 +1,41 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { prisma } from "@/lib/prisma"
 import ProductCard from "@/components/ProductCard"
 import { SortSelect } from "./SortSelect"
+import { SITE_NAME, SITE_URL } from "@/lib/site"
 
 interface Props {
   params: Promise<{ slug: string }>
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const category = await prisma.category.findUnique({
+    where: { slug, isActive: true },
+  })
+
+  if (!category) {
+    return { title: "Kategori Tidak Ditemukan" }
+  }
+
+  const title = `${category.name} | ${SITE_NAME}`
+  const description = category.description
+    ? `${category.description} - Belanja koleksi ${category.name} terbaru di ${SITE_NAME}.`
+    : `Belanja koleksi ${category.name} terbaru dari ${SITE_NAME}. Busana muslimah modern, syar'i, dan berkualitas.`
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `/categories/${slug}` },
+    openGraph: {
+      url: `/categories/${slug}`,
+      title,
+      description,
+    },
+  }
 }
 
 export default async function CategoryPage({
@@ -98,6 +127,21 @@ export default async function CategoryPage({
           </div>
         )}
       </div>
+
+      {/* JSON-LD BreadcrumbList */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: category.name, item: `${SITE_URL}/categories/${category.slug}` },
+            ],
+          }),
+        }}
+      />
     </div>
   )
 }

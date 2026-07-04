@@ -1,9 +1,21 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { prisma } from "@/lib/prisma"
 import ProductCard from "@/components/ProductCard"
+import { SITE_NAME } from "@/lib/site"
 
 interface Props {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export const metadata: Metadata = {
+  title: "Cari Produk",
+  description: `Cari produk busana muslimah favorit Anda di ${SITE_NAME}. Temukan gamis, hijab, dan dress syar'i terbaru.`,
+  alternates: { canonical: "/search" },
+  robots: {
+    index: false,
+    follow: true,
+  },
 }
 
 export default async function SearchPage({ searchParams }: Props) {

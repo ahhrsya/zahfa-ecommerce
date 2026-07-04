@@ -1,4 +1,17 @@
+import type { Metadata } from "next"
 import { Target, Eye, Heart, Shield, Star, Truck } from "lucide-react"
+import { SITE_NAME } from "@/lib/site"
+
+export const metadata: Metadata = {
+  title: "Tentang Kami",
+  description: `Kenali ${SITE_NAME}, toko busana muslimah modern Indonesia yang menghadirkan gamis, hijab, dan pakaian syar'i berkualitas.`,
+  alternates: { canonical: "/about" },
+  openGraph: {
+    url: "/about",
+    title: `Tentang Kami | ${SITE_NAME}`,
+    description: `Kenali ${SITE_NAME}, toko busana muslimah modern Indonesia yang menghadirkan gamis, hijab, dan pakaian syar'i berkualitas.`,
+  },
+}
 
 const values = [
   {

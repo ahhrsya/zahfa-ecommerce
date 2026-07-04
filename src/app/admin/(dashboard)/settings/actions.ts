@@ -14,6 +14,7 @@ export async function updateSettings(formData: FormData) {
     })
   }
   revalidatePath("/admin/settings")
+  revalidatePath("/", "layout")
 }
 
 const defaultKeys = ["WA_NUMBER", "STORE_NAME", "STORE_DESC", "STORE_ADDRESS", "STORE_PHONE", "STORE_EMAIL"]

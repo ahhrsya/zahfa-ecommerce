@@ -22,6 +22,7 @@ export async function createBlogPost(formData: FormData) {
 
   await prisma.blogPost.create({ data: { title, slug, content, excerpt: excerpt || null, image, author: author || null, isActive } })
   revalidatePath("/admin/blogs")
+  revalidatePath("/", "layout")
   redirect("/admin/blogs")
 }
 
@@ -48,6 +49,7 @@ export async function updateBlogPost(id: string, formData: FormData) {
     data: { title, slug, content, excerpt: excerpt || null, image, author: author || null, isActive },
   })
   revalidatePath("/admin/blogs")
+  revalidatePath("/", "layout")
   redirect("/admin/blogs")
 }
 
@@ -56,4 +58,5 @@ export async function deleteBlogPost(id: string) {
   if (post?.image) await deleteFile(post.image)
   await prisma.blogPost.delete({ where: { id } })
   revalidatePath("/admin/blogs")
+  revalidatePath("/", "layout")
 }

@@ -1,10 +1,15 @@
 import { prisma } from "@/lib/prisma"
+import { getApiKey } from "@/lib/api-key"
+import { SITE_URL } from "@/lib/site"
+import ApiKeyCard from "@/components/ApiKeyCard"
 import SettingsForm from "./_components/SettingsForm"
 
 export default async function SettingsPage() {
   const settings = await prisma.setting.findMany()
   const settingsMap: Record<string, string> = {}
   settings.forEach((s) => { settingsMap[s.key] = s.value })
+
+  const aiApiKey = await getApiKey()
 
   const fields = [
     { key: "STORE_NAME", label: "Nama Toko", type: "text" },
@@ -13,11 +18,15 @@ export default async function SettingsPage() {
     { key: "STORE_PHONE", label: "Telepon", type: "text" },
     { key: "STORE_EMAIL", label: "Email", type: "email" },
     { key: "WA_NUMBER", label: "Nomor WhatsApp", type: "text" },
+    { key: "AI_API_KEY", label: "AI API Key (Hermes)", type: "text" },
   ]
 
   return (
     <div>
       <h1 className="text-2xl font-bold text-gray-900 mb-6">Pengaturan</h1>
+
+      <ApiKeyCard apiKey={aiApiKey} baseUrl={SITE_URL} />
+
       <SettingsForm fields={fields} settings={settingsMap} />
     </div>
   )

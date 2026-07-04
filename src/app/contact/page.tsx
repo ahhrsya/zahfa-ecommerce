@@ -1,7 +1,20 @@
 export const dynamic = 'force-dynamic'
 
+import type { Metadata } from "next"
 import { prisma } from "@/lib/prisma"
 import { Phone, Mail, MapPin, Clock } from "lucide-react"
+import { SITE_NAME } from "@/lib/site"
+
+export const metadata: Metadata = {
+  title: "Hubungi Kami",
+  description: `Hubungi tim ${SITE_NAME} untuk pertanyaan, bantuan, atau kerja sama. Kami siap membantu kebutuhan busana muslimah Anda.`,
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    url: "/contact",
+    title: `Hubungi Kami | ${SITE_NAME}`,
+    description: `Hubungi tim ${SITE_NAME} untuk pertanyaan, bantuan, atau kerja sama.`,
+  },
+}
 
 async function submitContact(formData: FormData) {
   "use server"

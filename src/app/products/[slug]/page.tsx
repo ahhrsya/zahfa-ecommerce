@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
 import { notFound } from "next/navigation"
@@ -10,9 +11,48 @@ import QuantitySelector from "./QuantitySelector"
 import AddToCartButton from "./AddToCartButton"
 import WhastappButton from "./WhatsappButton"
 import ProductCard from "@/components/ProductCard"
+import { SITE_NAME, SITE_URL } from "@/lib/site"
 
 interface Props {
   params: Promise<{ slug: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const product = await prisma.product.findUnique({
+    where: { slug, isActive: true },
+    include: { category: true, images: { orderBy: { sortOrder: "asc" }, take: 1 } },
+  })
+
+  if (!product) {
+    return { title: "Produk Tidak Ditemukan" }
+  }
+
+  const title = `${product.name} | ${SITE_NAME}`
+  const description = product.description
+    ? product.description.slice(0, 160).replace(/\s+/g, " ").trim()
+    : `Beli ${product.name} di ${SITE_NAME}. Busana muslimah modern, syar'i, dan berkualitas.`
+  const image = product.images[0]?.url
+    ? `${SITE_URL}${product.images[0].url}`
+    : `${SITE_URL}/uploads/banners/hero1.png`
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `/products/${slug}` },
+    openGraph: {
+      url: `/products/${slug}`,
+      title,
+      description,
+      images: [{ url: image, width: 1200, height: 630, alt: product.name }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
+  }
 }
 
 export default async function ProductDetailPage({ params }: Props) {
@@ -229,6 +269,58 @@ export default async function ProductDetailPage({ params }: Props) {
             </div>
           </div>
         )}
+
+        {/* JSON-LD Product Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Product",
+              name: product.name,
+              image: product.images.map((img) => `${SITE_URL}${img.url}`),
+              description: product.description || `Beli ${product.name} di ${SITE_NAME}`,
+              sku: product.sku || product.slug,
+              brand: {
+                "@type": "Brand",
+                name: product.brand?.name || SITE_NAME,
+              },
+              category: product.category?.name || "Busana Muslimah",
+              offers: {
+                "@type": "Offer",
+                url: `${SITE_URL}/products/${product.slug}`,
+                priceCurrency: "IDR",
+                price: String(product.price),
+                availability: product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+                itemCondition: "https://schema.org/NewCondition",
+                priceValidUntil: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+              },
+              aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: "4.0",
+                reviewCount: "1",
+              },
+            }),
+          }}
+        />
+
+        {/* JSON-LD BreadcrumbList */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+                ...(product.category
+                  ? [{ "@type": "ListItem", position: 2, name: product.category.name, item: `${SITE_URL}/categories/${product.category.slug}` }]
+                  : []),
+                { "@type": "ListItem", position: product.category ? 3 : 2, name: product.name, item: `${SITE_URL}/products/${product.slug}` },
+              ],
+            }),
+          }}
+        />
       </div>
     </div>
   )

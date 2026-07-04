@@ -1,8 +1,28 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
 import { prisma } from "@/lib/prisma"
 import { truncate } from "@/lib/utils"
+import { SITE_NAME } from "@/lib/site"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Blog & Inspirasi",
+  description: `Baca artikel inspirasi, tips fashion, dan gaya hidup muslimah terbaru dari ${SITE_NAME}. Temukan inspirasi OOTD hijab, gaya busana muslimah modern, dan tren fashion syar'i terkini.`,
+  alternates: { canonical: "/blog" },
+  openGraph: {
+    url: "/blog",
+    title: `Blog & Inspirasi | ${SITE_NAME}`,
+    description: `Baca artikel inspirasi, tips fashion, dan gaya hidup muslimah terbaru dari ${SITE_NAME}.`,
+    images: [{ url: "/uploads/banners/hero1.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Blog & Inspirasi | ${SITE_NAME}`,
+    description: `Baca artikel inspirasi, tips fashion, dan gaya hidup muslimah terbaru dari ${SITE_NAME}.`,
+    images: ["/uploads/banners/hero1.png"],
+  },
+}
 
 const POSTS_PER_PAGE = 9
 
@@ -58,6 +78,7 @@ export default async function BlogPage({
                         alt={post.title}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                     ) : (
                       <div className="flex items-center justify-center h-full">

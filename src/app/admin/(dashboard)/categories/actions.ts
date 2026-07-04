@@ -21,6 +21,7 @@ export async function createCategory(formData: FormData) {
 
   await prisma.category.create({ data: { name, slug, description, image, isActive, sortOrder } })
   revalidatePath("/admin/categories")
+  revalidatePath("/", "layout")
   redirect("/admin/categories")
 }
 
@@ -46,6 +47,7 @@ export async function updateCategory(id: string, formData: FormData) {
     data: { name, slug, description, image, isActive, sortOrder },
   })
   revalidatePath("/admin/categories")
+  revalidatePath("/", "layout")
   redirect("/admin/categories")
 }
 
@@ -54,4 +56,5 @@ export async function deleteCategory(id: string) {
   if (category?.image) await deleteFile(category.image)
   await prisma.category.delete({ where: { id } })
   revalidatePath("/admin/categories")
+  revalidatePath("/", "layout")
 }

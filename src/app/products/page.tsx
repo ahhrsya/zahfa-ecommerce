@@ -1,7 +1,9 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { prisma } from "@/lib/prisma"
 import ProductCard from "@/components/ProductCard"
 import { FilterSidebar, MobileFilterBar } from "./Filters"
+import { SITE_NAME, SITE_URL } from "@/lib/site"
 
 interface Props {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
@@ -10,6 +12,17 @@ interface Props {
 const ITEMS_PER_PAGE = 12
 
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = {
+  title: "Koleksi Produk",
+  description: `Jelajahi koleksi lengkap busana muslimah modern dari ${SITE_NAME}. Gamis, hijab, dress syar'i, dan aksesoris muslimah berkualitas.`,
+  alternates: { canonical: "/products" },
+  openGraph: {
+    url: "/products",
+    title: `Koleksi Produk | ${SITE_NAME}`,
+    description: `Jelajahi koleksi lengkap busana muslimah modern dari ${SITE_NAME}.`,
+  },
+}
 
 export default async function ProductsPage({ searchParams }: Props) {
   const sp = await searchParams

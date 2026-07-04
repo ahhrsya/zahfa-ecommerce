@@ -46,7 +46,7 @@ export default function Header({ categories }: { categories: Category[] }) {
       {/* Top Bar */}
       <div className="flex items-center justify-between px-6 py-5 max-w-7xl mx-auto">
         <button
-          className="lg:hidden p-2 text-stone-500 hover:text-stone-800"
+          className="lg:hidden p-3 text-stone-500 hover:text-stone-800"
           onClick={() => setMobileMenuOpen(true)}
           aria-label="Buka menu"
         >
@@ -78,18 +78,18 @@ export default function Header({ categories }: { categories: Category[] }) {
 
         <div className="flex items-center gap-1">
           <button
-            className="lg:hidden p-2 text-stone-500 hover:text-stone-800"
+            className="lg:hidden p-3 text-stone-500 hover:text-stone-800"
             onClick={() => setSearchOpen(!searchOpen)}
             aria-label="Cari"
           >
             <Search className="w-5 h-5" />
           </button>
 
-          <Link href="/wishlist" className="p-2 text-stone-500 hover:text-stone-800" aria-label="Wishlist">
+          <Link href="/wishlist" className="p-3 text-stone-500 hover:text-stone-800" aria-label="Wishlist">
             <Heart className="w-5 h-5" />
           </Link>
 
-          <Link href="/cart" className="relative p-2 text-stone-500 hover:text-stone-800" aria-label="Keranjang">
+          <Link href="/cart" className="relative p-3 text-stone-500 hover:text-stone-800" aria-label="Keranjang">
             <ShoppingBag className="w-5 h-5" />
             {cartCount > 0 && (
               <span className="absolute -top-0.5 -right-0.5 bg-stone-900 text-white text-[10px] font-medium rounded-full w-4 h-4 flex items-center justify-center">
@@ -167,7 +167,7 @@ export default function Header({ categories }: { categories: Category[] }) {
               <span className="font-heading text-xl tracking-wide text-stone-900">Zahfa</span>
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-2 text-stone-500 hover:text-stone-800"
+                className="p-3 text-stone-500 hover:text-stone-800"
                 aria-label="Tutup menu"
               >
                 <X className="w-5 h-5" />

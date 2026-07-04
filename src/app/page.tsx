@@ -1,11 +1,24 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
 import { prisma } from "@/lib/prisma"
 import { formatRupiah } from "@/lib/utils"
 import ProductCard from "@/components/ProductCard"
 import HeroSlider from "@/components/HeroSlider"
+import { SITE_NAME, SITE_TAGLINE, SITE_DESCRIPTION, SITE_URL } from "@/lib/site"
 
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = {
+  title: `${SITE_NAME} - ${SITE_TAGLINE}`,
+  description: SITE_DESCRIPTION,
+  alternates: { canonical: "/" },
+  openGraph: {
+    url: "/",
+    title: `${SITE_NAME} - ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+  },
+}
 
 export default async function HomePage() {
   const [banners, categories, latestProducts, featuredProducts] = await Promise.all([
@@ -111,10 +124,10 @@ export default async function HomePage() {
 
       {/* Banner Promo */}
       <section className="py-16 px-6">
-        <div className="max-w-7xl mx-auto relative rounded-sm overflow-hidden bg-gradient-to-r from-stone-800 to-stone-700 aspect-[21/7] flex items-center">
-          <div className="relative z-10 px-10 md:px-16 text-white">
+        <div className="max-w-7xl mx-auto relative rounded-sm overflow-hidden bg-gradient-to-r from-stone-800 to-stone-700 aspect-[4/3] md:aspect-[21/7] flex items-center">
+          <div className="relative z-10 px-6 md:px-16 text-white">
             <p className="text-xs uppercase tracking-widest text-stone-300 mb-2">Koleksi Spesial</p>
-            <h2 className="text-3xl md:text-5xl text-white mb-3">Koleksi Ramadan</h2>
+            <h2 className="text-2xl md:text-5xl text-white mb-3">Koleksi Ramadan</h2>
             <p className="text-base md:text-lg text-stone-300 mb-5">Dapatkan diskon spesial hingga 50%</p>
             <Link
               href="/products"
@@ -149,6 +162,57 @@ export default async function HomePage() {
           </form>
         </div>
       </section>
+
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "Organization",
+                "@id": `${SITE_URL}/#organization`,
+                name: SITE_NAME,
+                url: SITE_URL,
+                logo: `${SITE_URL}/uploads/banners/brand1.png`,
+                sameAs: [
+                  "https://instagram.com/zahfa.store",
+                ],
+                contactPoint: {
+                  "@type": "ContactPoint",
+                  contactType: "Customer Service",
+                  availableLanguage: "Indonesian",
+                },
+              },
+              {
+                "@type": "WebSite",
+                "@id": `${SITE_URL}/#website`,
+                url: SITE_URL,
+                name: SITE_NAME,
+                publisher: { "@id": `${SITE_URL}/#organization` },
+                potentialAction: {
+                  "@type": "SearchAction",
+                  target: {
+                    "@type": "EntryPoint",
+                    urlTemplate: `${SITE_URL}/products?search={search_term_string}`,
+                  },
+                  "query-input": "required name=search_term_string",
+                },
+              },
+              {
+                "@type": "WebPage",
+                "@id": `${SITE_URL}/#webpage`,
+                url: SITE_URL,
+                name: `${SITE_NAME} - ${SITE_TAGLINE}`,
+                description: SITE_DESCRIPTION,
+                isPartOf: { "@id": `${SITE_URL}/#website` },
+                about: { "@id": `${SITE_URL}/#organization` },
+              },
+            ],
+          }),
+        }}
+      />
     </div>
   )
 }

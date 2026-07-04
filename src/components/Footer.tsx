@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="bg-stone-50 border-t border-stone-200 mt-auto">
       <div className="max-w-7xl mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
           <div className="md:col-span-1">
             <h3 className="text-2xl font-heading text-stone-900 mb-4">Zahfa</h3>
             <p className="text-sm text-stone-400 leading-relaxed">

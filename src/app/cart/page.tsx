@@ -144,18 +144,18 @@ export default function CartPage() {
                           onClick={() =>
                             updateQuantity(item.productId, -1)
                           }
-                          className="w-7 h-7 rounded border border-amber-200 flex items-center justify-center text-gray-500 hover:bg-amber-50 text-sm"
+                          className="w-9 h-9 rounded border border-amber-200 flex items-center justify-center text-gray-500 hover:bg-amber-50 text-sm"
                         >
                           -
                         </button>
-                        <span className="text-sm font-medium w-6 text-center">
+                        <span className="text-sm font-medium w-8 text-center">
                           {item.quantity}
                         </span>
                         <button
                           onClick={() =>
                             updateQuantity(item.productId, 1)
                           }
-                          className="w-7 h-7 rounded border border-amber-200 flex items-center justify-center text-gray-500 hover:bg-amber-50 text-sm"
+                          className="w-9 h-9 rounded border border-amber-200 flex items-center justify-center text-gray-500 hover:bg-amber-50 text-sm"
                         >
                           +
                         </button>

@@ -33,7 +33,7 @@ export default function HeroSlider({ banners }: { banners: Banner[] }) {
   if (!banners.length) return null
 
   return (
-    <div className="relative w-full aspect-[21/9] max-h-[500px] overflow-hidden bg-stone-100">
+    <div className="relative w-full aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/9] max-h-[500px] overflow-hidden bg-stone-100">
       {banners.map((banner, i) => (
         <div
           key={banner.id}
@@ -47,6 +47,7 @@ export default function HeroSlider({ banners }: { banners: Banner[] }) {
               alt={banner.title || "Banner"}
               fill
               className="object-contain"
+              sizes="100vw"
               priority={i === 0}
             />
           ) : (
@@ -87,14 +88,14 @@ export default function HeroSlider({ banners }: { banners: Banner[] }) {
         <>
           <button
             onClick={prev}
-            className="absolute left-6 top-1/2 -translate-y-1/2 z-20 p-2 bg-white/60 hover:bg-white/90 transition-colors"
+            className="absolute left-6 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/60 hover:bg-white/90 transition-colors"
             aria-label="Sebelumnya"
           >
             <ChevronLeft className="w-5 h-5 text-stone-700" />
           </button>
           <button
             onClick={next}
-            className="absolute right-6 top-1/2 -translate-y-1/2 z-20 p-2 bg-white/60 hover:bg-white/90 transition-colors"
+            className="absolute right-6 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/60 hover:bg-white/90 transition-colors"
             aria-label="Selanjutnya"
           >
             <ChevronRight className="w-5 h-5 text-stone-700" />
@@ -109,7 +110,7 @@ export default function HeroSlider({ banners }: { banners: Banner[] }) {
             <button
               key={i}
               onClick={() => setCurrent(i)}
-              className={`w-2.5 h-2.5 rounded-full transition-all ${
+              className={`w-3 h-3 rounded-full transition-all ${
                 i === current ? "bg-white w-6" : "bg-white/50"
               }`}
               aria-label={`Slide ${i + 1}`}

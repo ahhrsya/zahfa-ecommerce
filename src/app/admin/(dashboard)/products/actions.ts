@@ -54,6 +54,7 @@ export async function createProduct(formData: FormData) {
   }
 
   revalidatePath("/admin/products")
+  revalidatePath("/", "layout")
   redirect("/admin/products")
 }
 
@@ -107,6 +108,7 @@ export async function updateProduct(id: string, formData: FormData) {
   }
 
   revalidatePath("/admin/products")
+  revalidatePath("/", "layout")
   redirect("/admin/products")
 }
 
@@ -117,9 +119,11 @@ export async function deleteProduct(id: string) {
   }
   await prisma.product.delete({ where: { id } })
   revalidatePath("/admin/products")
+  revalidatePath("/", "layout")
 }
 
 export async function toggleProductStatus(id: string, isActive: boolean) {
   await prisma.product.update({ where: { id }, data: { isActive } })
   revalidatePath("/admin/products")
+  revalidatePath("/", "layout")
 }

@@ -1,14 +1,56 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 import { prisma } from "@/lib/prisma"
 import { ArrowLeft, Heart, MessageCircle, Share2 } from "lucide-react"
+import { SITE_NAME, SITE_URL } from "@/lib/site"
+
+interface Props {
+  params: Promise<{ slug: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const post = await prisma.blogPost.findUnique({
+    where: { slug, isActive: true },
+  })
+
+  if (!post) {
+    return { title: "Artikel Tidak Ditemukan" }
+  }
+
+  const title = `${post.title} | ${SITE_NAME}`
+  const description = post.excerpt || `Baca artikel ${post.title} di blog ${SITE_NAME}.`
+  const image = post.image ? `${SITE_URL}${post.image}` : `${SITE_URL}/opengraph-image`
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `/blog/${slug}` },
+    robots: {
+      index: true,
+      follow: true,
+    },
+    openGraph: {
+      url: `/blog/${slug}`,
+      title,
+      description,
+      images: [{ url: image, width: 1200, height: 630, alt: post.title }],
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
+  }
+}
 
 export default async function BlogPostPage({
   params,
-}: {
-  params: Promise<{ slug: string }>
-}) {
+}: Props) {
   const { slug } = await params
 
   const post = await prisma.blogPost.findUnique({
@@ -48,7 +90,7 @@ export default async function BlogPostPage({
         {/* Featured Image */}
         {post.image && (
           <div className="relative aspect-[16/9] rounded-2xl overflow-hidden mb-8">
-            <Image src={post.image} alt={post.title} fill className="object-cover" />
+            <Image src={post.image} alt={post.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 768px" />
           </div>
         )}
 
@@ -78,6 +120,34 @@ export default async function BlogPostPage({
           </div>
         </div>
       </article>
+
+      {/* JSON-LD Article Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: post.title,
+            description: post.excerpt || post.title,
+            image: post.image ? `${SITE_URL}${post.image}` : undefined,
+            datePublished: post.createdAt.toISOString(),
+            dateModified: post.updatedAt.toISOString(),
+            author: {
+              "@type": "Person",
+              name: post.author || SITE_NAME,
+            },
+            publisher: {
+              "@type": "Organization",
+              name: SITE_NAME,
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": `${SITE_URL}/blog/${post.slug}`,
+            },
+          }),
+        }}
+      />
     </div>
   )
 }

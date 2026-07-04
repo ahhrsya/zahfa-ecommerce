@@ -79,11 +79,11 @@ export default function WishlistPage() {
                 <ProductCard product={item} />
                 <button
                   onClick={() => removeItem(item.slug)}
-                  className="absolute top-2 right-2 z-10 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center text-red-400 hover:text-red-600 hover:bg-white transition-all shadow-sm"
+                  className="absolute top-2 right-2 z-10 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center text-red-400 hover:text-red-600 hover:bg-white transition-all shadow-sm"
                   title="Hapus dari wishlist"
                 >
                   <svg
-                    className="w-4 h-4"
+                    className="w-5 h-5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
