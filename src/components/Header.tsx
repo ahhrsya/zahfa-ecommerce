@@ -107,7 +107,7 @@ export default function Header({ categories }: { categories: Category[] }) {
 
       {/* Desktop Navigation */}
       <nav className="hidden lg:flex border-t border-stone-100">
-        <div className="flex items-center justify-center gap-10 py-3 max-w-7xl mx-auto">
+        <div className="flex items-center gap-10 py-3 max-w-7xl mx-auto px-6">
           <div
             className="relative"
             onMouseEnter={() => setDropdownOpen(true)}
