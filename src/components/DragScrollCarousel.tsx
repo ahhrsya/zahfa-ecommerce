@@ -72,7 +72,7 @@ export default function DragScrollCarousel({ children, gap = 16 }: Props) {
   }
 
   return (
-    <div className="group">
+    <div>
       <div
         ref={ref}
         onMouseDown={handleMouseDown}
