@@ -33,7 +33,7 @@ export default function HeroSlider({ banners }: { banners: Banner[] }) {
   if (!banners.length) return null
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-stone-100">
+    <div className="relative w-full h-[calc(100vh-88px)] overflow-hidden bg-stone-100">
       {banners.map((banner, i) => (
         <div
           key={banner.id}
