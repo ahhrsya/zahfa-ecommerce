@@ -143,9 +143,6 @@ export default function Header({ categories }: { categories: Category[] }) {
             )}
           </div>
 
-          <Link href="/brand" className="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
-            Brand
-          </Link>
           <Link href="/about" className="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
             Tentang Kami
           </Link>
@@ -193,13 +190,6 @@ export default function Header({ categories }: { categories: Category[] }) {
               <hr className="mx-6 my-4 border-stone-100" />
 
               <div className="px-6 space-y-1">
-                <Link
-                  href="/brand"
-                  className="block py-2.5 text-sm text-stone-700 hover:text-stone-900 transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Brand
-                </Link>
                 <Link
                   href="/about"
                   className="block py-2.5 text-sm text-stone-700 hover:text-stone-900 transition-colors"
