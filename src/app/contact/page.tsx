@@ -4,6 +4,7 @@ import type { Metadata } from "next"
 import { prisma } from "@/lib/prisma"
 import { Phone, Mail, MapPin, Clock } from "lucide-react"
 import { SITE_NAME } from "@/lib/site"
+import ContactForm from "./ContactForm"
 
 export const metadata: Metadata = {
   title: "Hubungi Kami",
@@ -14,17 +15,6 @@ export const metadata: Metadata = {
     title: `Hubungi Kami | ${SITE_NAME}`,
     description: `Hubungi tim ${SITE_NAME} untuk pertanyaan, bantuan, atau kerja sama.`,
   },
-}
-
-async function submitContact(formData: FormData) {
-  "use server"
-
-  const name = formData.get("name") as string
-  const email = formData.get("email") as string
-  const phone = formData.get("phone") as string
-  const message = formData.get("message") as string
-
-  console.log("Contact form submission:", { name, email, phone, message })
 }
 
 export default async function ContactPage() {
@@ -53,65 +43,7 @@ export default async function ContactPage() {
           {/* Contact Form */}
           <div>
             <h2 className="text-2xl font-bold text-stone-800 mb-6">Kirim Pesan</h2>
-            <form action={submitContact} className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-stone-700 mb-1.5">
-                  Nama Lengkap
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  className="w-full px-4 py-3 rounded-xl border border-amber-200 bg-white text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent"
-                  placeholder="Masukkan nama Anda"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-stone-700 mb-1.5">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  className="w-full px-4 py-3 rounded-xl border border-amber-200 bg-white text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent"
-                  placeholder="Masukkan email Anda"
-                />
-              </div>
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-stone-700 mb-1.5">
-                  Nomor Telepon
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  className="w-full px-4 py-3 rounded-xl border border-amber-200 bg-white text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent"
-                  placeholder="Masukkan nomor telepon"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-stone-700 mb-1.5">
-                  Pesan
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  rows={5}
-                  className="w-full px-4 py-3 rounded-xl border border-amber-200 bg-white text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-transparent resize-none"
-                  placeholder="Tulis pesan Anda..."
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full px-6 py-3 bg-amber-600 text-white font-medium rounded-xl hover:bg-amber-700 transition-colors"
-              >
-                Kirim Pesan
-              </button>
-            </form>
+            <ContactForm />
           </div>
 
           {/* Info */}
