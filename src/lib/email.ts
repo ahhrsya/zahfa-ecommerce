@@ -1,9 +1,13 @@
 import { Resend } from "resend"
 
-const resend = new Resend(process.env.RESEND_API_KEY || "")
-
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || "noreply@zahfa.store"
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "admin@zahfa.id"
+
+function getResend() {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) return null
+  return new Resend(apiKey)
+}
 
 export async function sendContactNotification(data: {
   name: string
@@ -11,6 +15,9 @@ export async function sendContactNotification(data: {
   phone: string
   message: string
 }) {
+  const resend = getResend()
+  if (!resend) return
+
   return resend.emails.send({
     from: FROM_EMAIL,
     to: [ADMIN_EMAIL],
@@ -38,6 +45,9 @@ export async function sendContactAutoReply(data: {
   name: string
   email: string
 }) {
+  const resend = getResend()
+  if (!resend) return
+
   return resend.emails.send({
     from: FROM_EMAIL,
     to: [data.email],
@@ -55,7 +65,7 @@ export async function sendContactAutoReply(data: {
           Sementara itu, Anda juga bisa menghubungi kami langsung via WhatsApp untuk respon yang lebih cepat.
         </p>
         <div style="margin-top: 24px; padding: 20px; background: #fffbeb; border-radius: 8px; border: 1px solid #fde68a;">
-          <p style="margin: 0 0 8px; color: #92400e; font-weight: 600;">🛍️ Butuh bantuan cepat?</p>
+          <p style="margin: 0 0 8px; color: #92400e; font-weight: 600;">💬 Butuh bantuan cepat?</p>
           <p style="margin: 0; color: #92400e;">
             Hubungi kami via WhatsApp dengan klik tombol chat di pojok kanan bawah website kami.
           </p>
