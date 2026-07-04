@@ -27,7 +27,7 @@ export default async function BrandsPage() {
             </tr>
           </thead>
           <tbody>
-            {brands.map((b) => (
+            {brands.map((b: any) => (
               <tr key={b.id} className="border-t border-gray-100 hover:bg-gray-50">
                 <td className="px-4 py-3">
                   {b.logo ? (

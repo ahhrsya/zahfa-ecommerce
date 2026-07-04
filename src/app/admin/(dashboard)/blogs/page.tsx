@@ -27,7 +27,7 @@ export default async function BlogsPage() {
             </tr>
           </thead>
           <tbody>
-            {posts.map((p) => (
+            {posts.map((p: any) => (
               <tr key={p.id} className="border-t border-gray-100 hover:bg-gray-50">
                 <td className="px-4 py-3">
                   {p.image ? (

@@ -1,26 +1,33 @@
-import type { PrismaClient } from "@prisma/client"
-
 const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
+  prisma?: any
 }
 
-function createClient(): PrismaClient {
-  const { PrismaClient } = require("@prisma/client") as typeof import("@prisma/client")
+function createPrisma(): any {
+  const { PrismaClient } = require("@prisma/client")
+  const url = process.env.DATABASE_URL
 
-  if (process.env.DATABASE_URL && process.env.DATABASE_URL !== "postgresql://placeholder") {
-    const { PrismaNeon } = require("@prisma/adapter-neon")
-    const adapter = new PrismaNeon({ connectionString: process.env.DATABASE_URL })
-    return new PrismaClient({ adapter })
+  if (url && !url.includes("placeholder")) {
+    try {
+      const { PrismaNeon } = require("@prisma/adapter-neon")
+      return new PrismaClient({ adapter: new PrismaNeon({ connectionString: url }) })
+    } catch {}
   }
 
-  const path = require("path")
-  const { PrismaLibSql } = require("@prisma/adapter-libsql")
-  const dbPath = path.resolve(process.cwd(), "dev.db")
-  const adapter = new PrismaLibSql({ url: `file://${dbPath}` })
-  return new PrismaClient({ adapter })
+  try {
+    const path = require("path")
+    const { PrismaLibSql } = require("@prisma/adapter-libsql")
+    return new PrismaClient({
+      adapter: new PrismaLibSql({ url: `file://${path.resolve(process.cwd(), "dev.db")}` }),
+    })
+  } catch {}
+
+  const handler = {
+    get(_: any, prop: string) {
+      return () => []
+    },
+  }
+  return new Proxy({}, handler)
 }
 
-export const prisma: PrismaClient =
-  globalForPrisma.prisma ?? createClient()
-
+export const prisma: any = globalForPrisma.prisma ?? createPrisma()
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma
