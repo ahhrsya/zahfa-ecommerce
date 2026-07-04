@@ -112,7 +112,7 @@ export default async function HomePage() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6">
             {latestProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} isNew />
             ))}
           </div>
         </div>
@@ -128,7 +128,7 @@ export default async function HomePage() {
           <DragScrollCarousel gap={20}>
             {featuredProducts.map((product) => (
               <div key={product.id} style={{ scrollSnapAlign: "start", width: 260 }}>
-                <ProductCard product={product} />
+                <ProductCard product={product} isBest />
               </div>
             ))}
           </DragScrollCarousel>

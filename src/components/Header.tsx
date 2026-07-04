@@ -58,6 +58,53 @@ export default function Header({ categories }: { categories: Category[] }) {
           <Image src="/logo.png" alt="Zahfa" width={260} height={80} className="h-20 w-auto" priority />
         </Link>
 
+        {/* Desktop Nav */}
+        <nav className="hidden lg:flex items-center gap-8">
+          <div
+            className="relative"
+            onMouseEnter={() => setDropdownOpen(true)}
+            onMouseLeave={() => setDropdownOpen(false)}
+          >
+            <button className="flex items-center gap-1 text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
+              Produk
+              <ChevronDown className="w-3 h-3" />
+            </button>
+            {dropdownOpen && (
+              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-52">
+                <div className="bg-white shadow-md border border-stone-200 py-2">
+                  <Link
+                    href="/products"
+                    className="block px-5 py-2.5 text-xs uppercase tracking-wider text-stone-800 font-semibold hover:text-stone-900 transition-colors border-b border-stone-100 mb-1"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    Semua Produk
+                  </Link>
+                  {categories.map((cat) => (
+                    <Link
+                      key={cat.id}
+                      href={`/categories/${cat.slug}`}
+                      className="block px-5 py-2.5 text-xs uppercase tracking-wider text-stone-600 hover:text-stone-900 transition-colors"
+                    >
+                      {cat.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <Link href="/about" className="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
+            Tentang Kami
+          </Link>
+          <Link href="/blog" className="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
+            Blog
+          </Link>
+          <Link href="/contact" className="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
+            Kontak
+          </Link>
+        </nav>
+
+        {/* Right Icons */}
         <div className="flex items-center gap-1">
           <Link
             href="/search"
@@ -105,130 +152,34 @@ export default function Header({ categories }: { categories: Category[] }) {
         </div>
       )}
 
-      {/* Desktop Navigation */}
-      <nav className="hidden lg:flex border-t border-stone-100">
-        <div className="flex items-center gap-10 py-3 max-w-7xl mx-auto px-6">
-          <div
-            className="relative"
-            onMouseEnter={() => setDropdownOpen(true)}
-            onMouseLeave={() => setDropdownOpen(false)}
-          >
-            <button className="flex items-center gap-1 text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
-              Produk
-              <ChevronDown className="w-3 h-3" />
-            </button>
-            {dropdownOpen && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-52">
-                <div className="bg-white shadow-md border border-stone-200 py-2">
-                  <Link
-                    href="/products"
-                    className="block px-5 py-2.5 text-xs uppercase tracking-wider text-stone-800 font-semibold hover:text-stone-900 transition-colors border-b border-stone-100 mb-1"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    Semua Produk
-                  </Link>
-                  {categories.map((cat) => (
-                    <Link
-                      key={cat.id}
-                      href={`/categories/${cat.slug}`}
-                      className="block px-5 py-2.5 text-xs uppercase tracking-wider text-stone-600 hover:text-stone-900 transition-colors"
-                    >
-                      {cat.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          <Link href="/koleksi" className="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
-            Koleksi
-          </Link>
-          <Link href="/about" className="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
-            Tentang Kami
-          </Link>
-          <Link href="/blog" className="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
-            Blog
-          </Link>
-          <Link href="/contact" className="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
-            Kontak
-          </Link>
-        </div>
-      </nav>
-
       {/* Mobile Sidebar */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
-          <div
-            className="fixed inset-0 bg-black/30"
-            onClick={() => setMobileMenuOpen(false)}
-          />
-
+          <div className="fixed inset-0 bg-black/30" onClick={() => setMobileMenuOpen(false)} />
           <div className="fixed top-0 left-0 bottom-0 w-72 bg-white shadow-xl z-50 flex flex-col">
             <div className="flex items-center justify-between px-6 py-5 border-b border-stone-100">
               <Image src="/logo.png" alt="Zahfa" width={200} height={60} className="h-14 w-auto" />
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-3 text-stone-500 hover:text-stone-800"
-                aria-label="Tutup menu"
-              >
+              <button onClick={() => setMobileMenuOpen(false)} className="p-3 text-stone-500 hover:text-stone-800" aria-label="Tutup menu">
                 <X className="w-5 h-5" />
               </button>
             </div>
-
             <nav className="flex-1 overflow-y-auto py-6">
               <div className="px-6 mb-4">
                 <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400 mb-3">Produk</p>
-                <Link
-                  href="/products"
-                  className="block py-2.5 text-sm font-semibold text-stone-800 hover:text-stone-900 transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
+                <Link href="/products" className="block py-2.5 text-sm font-semibold text-stone-800 hover:text-stone-900 transition-colors" onClick={() => setMobileMenuOpen(false)}>
                   Semua Produk
                 </Link>
                 {categories.map((cat) => (
-                  <Link
-                    key={cat.id}
-                    href={`/categories/${cat.slug}`}
-                    className="block py-2.5 pl-4 text-sm text-stone-700 hover:text-stone-900 transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
+                  <Link key={cat.id} href={`/categories/${cat.slug}`} className="block py-2.5 pl-4 text-sm text-stone-700 hover:text-stone-900 transition-colors" onClick={() => setMobileMenuOpen(false)}>
                     {cat.name}
                   </Link>
                 ))}
               </div>
-
               <hr className="mx-6 my-4 border-stone-100" />
-
               <div className="px-6 space-y-1">
-                <Link
-                  href="/koleksi"
-                  className="block py-2.5 text-sm text-stone-700 hover:text-stone-900 transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Koleksi
-                </Link>
-                <Link
-                  href="/about"
-                  className="block py-2.5 text-sm text-stone-700 hover:text-stone-900 transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Tentang Kami
-                </Link>
-                <Link
-                  href="/blog"
-                  className="block py-2.5 text-sm text-stone-700 hover:text-stone-900 transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Blog
-                </Link>
-                <Link
-                  href="/contact"
-                  className="block py-2.5 text-sm text-stone-700 hover:text-stone-900 transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Kontak
-                </Link>
+                <Link href="/about" className="block py-2.5 text-sm text-stone-700 hover:text-stone-900 transition-colors" onClick={() => setMobileMenuOpen(false)}>Tentang Kami</Link>
+                <Link href="/blog" className="block py-2.5 text-sm text-stone-700 hover:text-stone-900 transition-colors" onClick={() => setMobileMenuOpen(false)}>Blog</Link>
+                <Link href="/contact" className="block py-2.5 text-sm text-stone-700 hover:text-stone-900 transition-colors" onClick={() => setMobileMenuOpen(false)}>Kontak</Link>
               </div>
             </nav>
           </div>
