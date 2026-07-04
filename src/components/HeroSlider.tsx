@@ -61,8 +61,8 @@ export default function HeroSlider({ banners }: { banners: Banner[] }) {
 
           {/* Text Overlay */}
           {(banner.title || banner.subtitle) && banner.image && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/10">
-              <div className="text-center text-white px-6 max-w-2xl">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent">
+              <div className="absolute bottom-10 left-6 md:bottom-14 md:left-12 text-left text-white max-w-xl">
                 {banner.title && (
                   <h2 className="text-3xl md:text-5xl font-heading font-bold mb-2 drop-shadow-lg">{banner.title}</h2>
                 )}
