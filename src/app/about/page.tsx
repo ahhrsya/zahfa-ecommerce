@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Target, Eye, Heart, Shield, Star, Truck } from "lucide-react"
+import { Heart, Shield, Star, Truck } from "lucide-react"
 import { SITE_NAME } from "@/lib/site"
 
 export const metadata: Metadata = {
@@ -78,33 +78,36 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Visi & Misi */}
+      {/* Gallery */}
       <section className="py-16 bg-amber-50">
-        <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-stone-800 text-center mb-12">Visi &amp; Misi</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-2xl p-8 border border-amber-100">
-              <div className="w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center mb-4">
-                <Eye className="w-7 h-7 text-amber-700" />
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-stone-800 text-center mb-4">Gallery</h2>
+          <p className="text-stone-400 text-sm text-center mb-12">Momen dan koleksi terbaik dari Zahfa</p>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {[
+              { label: "Koleksi Gamis", color: "from-amber-200 to-amber-300" },
+              { label: "Koleksi Hijab", color: "from-amber-300 to-amber-400" },
+              { label: "Koleksi Dress", color: "from-stone-300 to-stone-400" },
+              { label: "Koleksi Atasan", color: "from-amber-100 to-amber-200" },
+              { label: "Koleksi Rok", color: "from-stone-200 to-stone-300" },
+              { label: "Koleksi Mukena", color: "from-amber-200 to-stone-200" },
+              { label: "Koleksi Aksesoris", color: "from-amber-300 to-stone-300" },
+              { label: "Koleksi Spesial", color: "from-stone-300 to-amber-200" },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className={`relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br ${item.color} group cursor-pointer`}
+              >
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <svg className="w-12 h-12 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                  <p className="text-white text-sm font-medium">{item.label}</p>
+                </div>
               </div>
-              <h3 className="text-xl font-semibold text-stone-800 mb-3">Visi</h3>
-              <p className="text-stone-600 leading-relaxed">
-                Menjadi brand busana muslimah modern terkemuka di Indonesia yang menginspirasi
-                wanita untuk tampil percaya diri dengan gaya islami.
-              </p>
-            </div>
-            <div className="bg-white rounded-2xl p-8 border border-amber-100">
-              <div className="w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center mb-4">
-                <Target className="w-7 h-7 text-amber-700" />
-              </div>
-              <h3 className="text-xl font-semibold text-stone-800 mb-3">Misi</h3>
-              <ul className="text-stone-600 leading-relaxed space-y-2 list-disc list-inside">
-                <li>Menyediakan produk busana muslimah berkualitas tinggi dengan harga terjangkau</li>
-                <li>Menjadi inspirasi gaya berpakaian islami yang modern dan kekinian</li>
-                <li>Memberikan pelayanan terbaik untuk kepuasan pelanggan</li>
-                <li>Berkontribusi dalam perkembangan industri fashion muslim Indonesia</li>
-              </ul>
-            </div>
+            ))}
           </div>
         </div>
       </section>

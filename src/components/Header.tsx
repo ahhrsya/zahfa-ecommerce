@@ -126,12 +126,19 @@ export default function Header({ categories }: { categories: Category[] }) {
             onMouseLeave={() => setDropdownOpen(false)}
           >
             <button className="flex items-center gap-1 text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
-              Koleksi
+              Produk
               <ChevronDown className="w-3 h-3" />
             </button>
-            {dropdownOpen && categories.length > 0 && (
+            {dropdownOpen && (
               <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-52">
                 <div className="bg-white shadow-md border border-stone-200 py-2">
+                  <Link
+                    href="/products"
+                    className="block px-5 py-2.5 text-xs uppercase tracking-wider text-stone-800 font-semibold hover:text-stone-900 transition-colors border-b border-stone-100 mb-1"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    Semua Produk
+                  </Link>
                   {categories.map((cat) => (
                     <Link
                       key={cat.id}
@@ -146,6 +153,9 @@ export default function Header({ categories }: { categories: Category[] }) {
             )}
           </div>
 
+          <Link href="/koleksi" className="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
+            Koleksi
+          </Link>
           <Link href="/about" className="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
             Tentang Kami
           </Link>
@@ -180,12 +190,19 @@ export default function Header({ categories }: { categories: Category[] }) {
 
             <nav className="flex-1 overflow-y-auto py-6">
               <div className="px-6 mb-4">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400 mb-3">Koleksi</p>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400 mb-3">Produk</p>
+                <Link
+                  href="/products"
+                  className="block py-2.5 text-sm font-semibold text-stone-800 hover:text-stone-900 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Semua Produk
+                </Link>
                 {categories.map((cat) => (
                   <Link
                     key={cat.id}
                     href={`/categories/${cat.slug}`}
-                    className="block py-2.5 text-sm text-stone-700 hover:text-stone-900 transition-colors"
+                    className="block py-2.5 pl-4 text-sm text-stone-700 hover:text-stone-900 transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {cat.name}
@@ -196,6 +213,13 @@ export default function Header({ categories }: { categories: Category[] }) {
               <hr className="mx-6 my-4 border-stone-100" />
 
               <div className="px-6 space-y-1">
+                <Link
+                  href="/koleksi"
+                  className="block py-2.5 text-sm text-stone-700 hover:text-stone-900 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Koleksi
+                </Link>
                 <Link
                   href="/about"
                   className="block py-2.5 text-sm text-stone-700 hover:text-stone-900 transition-colors"
