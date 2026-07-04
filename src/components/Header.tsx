@@ -45,7 +45,7 @@ export default function Header({ categories }: { categories: Category[] }) {
   return (
     <header className="bg-white border-b border-stone-200 sticky top-0 z-30">
       {/* Top Bar */}
-      <div className="flex items-center justify-between px-6 py-3 max-w-7xl mx-auto">
+      <div className="flex items-center justify-between px-6 py-1 max-w-7xl mx-auto">
         <button
           className="lg:hidden p-3 text-stone-500 hover:text-stone-800"
           onClick={() => setMobileMenuOpen(true)}
@@ -55,7 +55,7 @@ export default function Header({ categories }: { categories: Category[] }) {
         </button>
 
         <Link href="/" className="shrink-0">
-          <Image src="/logo.png" alt="Zahfa" width={210} height={64} className="h-16 w-auto" priority />
+          <Image src="/logo.png" alt="Zahfa" width={260} height={80} className="h-20 w-auto" priority />
         </Link>
 
         <form onSubmit={handleSearch} className="hidden lg:flex flex-1 max-w-xs mx-8">
@@ -178,7 +178,7 @@ export default function Header({ categories }: { categories: Category[] }) {
 
           <div className="fixed top-0 left-0 bottom-0 w-72 bg-white shadow-xl z-50 flex flex-col">
             <div className="flex items-center justify-between px-6 py-5 border-b border-stone-100">
-              <Image src="/logo.png" alt="Zahfa" width={160} height={48} className="h-12 w-auto" />
+              <Image src="/logo.png" alt="Zahfa" width={200} height={60} className="h-14 w-auto" />
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 className="p-3 text-stone-500 hover:text-stone-800"
