@@ -18,8 +18,7 @@ export default function WishlistPage() {
   const [items, setItems] = useState<WishlistItem[]>([])
   const [mounted, setMounted] = useState(false)
 
-  useEffect(() => {
-    setMounted(true)
+  function loadItems() {
     const saved = localStorage.getItem("wishlist")
     if (saved) {
       try {
@@ -27,6 +26,27 @@ export default function WishlistPage() {
       } catch {
         setItems([])
       }
+    } else {
+      setItems([])
+    }
+  }
+
+  useEffect(() => {
+    setMounted(true)
+    loadItems()
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === "wishlist") {
+        loadItems()
+      }
+    }
+    const handleCustom = () => loadItems()
+
+    window.addEventListener("storage", handleStorage)
+    window.addEventListener("wishlist-updated", handleCustom)
+    return () => {
+      window.removeEventListener("storage", handleStorage)
+      window.removeEventListener("wishlist-updated", handleCustom)
     }
   }, [])
 
@@ -34,6 +54,7 @@ export default function WishlistPage() {
     const updated = items.filter((item) => item.slug !== slug)
     setItems(updated)
     localStorage.setItem("wishlist", JSON.stringify(updated))
+    window.dispatchEvent(new CustomEvent("wishlist-updated"))
   }
 
   if (!mounted) {

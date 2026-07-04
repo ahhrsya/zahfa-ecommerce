@@ -35,7 +35,7 @@ export default function ProductCard({
       )
     : null
 
-  useEffect(() => {
+  function checkWishlist() {
     const saved = localStorage.getItem("wishlist")
     if (saved) {
       try {
@@ -44,7 +44,16 @@ export default function ProductCard({
       } catch {
         setIsWishlisted(false)
       }
+    } else {
+      setIsWishlisted(false)
     }
+  }
+
+  useEffect(() => {
+    checkWishlist()
+    const handleUpdate = () => checkWishlist()
+    window.addEventListener("wishlist-updated", handleUpdate)
+    return () => window.removeEventListener("wishlist-updated", handleUpdate)
   }, [product.id])
 
   function toggleWishlist(e: React.MouseEvent) {
@@ -82,6 +91,7 @@ export default function ProductCard({
     window.dispatchEvent(
       new StorageEvent("storage", { key: "wishlist", newValue: JSON.stringify(items) })
     )
+    window.dispatchEvent(new CustomEvent("wishlist-updated"))
   }
 
   function addToCart(e: React.MouseEvent) {
@@ -142,7 +152,7 @@ export default function ProductCard({
   }
 
   return (
-    <div className="group relative bg-stone-50 rounded-sm transition-all duration-300 hover:shadow-md">
+    <div className="group relative">
       {/* Badges */}
       {badges.length > 0 && (
         <div className="absolute top-3 left-3 z-10 flex flex-wrap gap-2">
@@ -173,7 +183,7 @@ export default function ProductCard({
       {/* Image */}
       <Link
         href={`/products/${product.slug}`}
-        className="block relative aspect-square bg-stone-100 overflow-hidden"
+        className="block relative aspect-[3/4] bg-stone-100 overflow-hidden rounded-sm"
       >
         {product.images?.[0]?.url ? (
           <Image
@@ -181,7 +191,7 @@ export default function ProductCard({
             alt={product.images[0].alt || product.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-contain p-6 group-hover:scale-105 transition-transform duration-500"
+            className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
           <div className="flex items-center justify-center h-full">
@@ -203,7 +213,7 @@ export default function ProductCard({
       </Link>
 
       {/* Info */}
-      <div className="p-4">
+      <div className="pt-3">
         {product.category && (
           <Link
             href={`/categories/${product.category.slug}`}
@@ -218,7 +228,7 @@ export default function ProductCard({
           </h3>
         </Link>
 
-        <div className="flex items-end justify-between mt-2.5">
+        <div className="flex items-end justify-between mt-2">
           <div className="flex flex-col">
             <span className="text-sm font-bold text-stone-900">
               {formatRupiah(product.price)}
