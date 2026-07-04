@@ -131,15 +131,16 @@ export default function Header({ categories }: { categories: Category[] }) {
             {dropdownOpen && categories.length > 0 && (
               <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-52">
                 <div className="bg-white shadow-md border border-stone-200 py-2">
-                {categories.map((cat) => (
-                  <Link
-                    key={cat.id}
-                    href={`/categories/${cat.slug}`}
-                    className="block px-5 py-2.5 text-xs uppercase tracking-wider text-stone-600 hover:text-stone-900 transition-colors"
-                  >
-                    {cat.name}
-                  </Link>
-                ))}
+                  {categories.map((cat) => (
+                    <Link
+                      key={cat.id}
+                      href={`/categories/${cat.slug}`}
+                      className="block px-5 py-2.5 text-xs uppercase tracking-wider text-stone-600 hover:text-stone-900 transition-colors"
+                    >
+                      {cat.name}
+                    </Link>
+                  ))}
+                </div>
               </div>
             )}
           </div>
