@@ -55,8 +55,8 @@ export default async function HomePage() {
       <HeroSlider banners={banners} />
 
       {/* Kategori Populer — Carousel */}
-      <section className="py-16 max-w-7xl mx-auto px-6">
-        <div className="text-center mb-10">
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-6 text-center mb-10">
           <h2 className="text-2xl md:text-3xl text-stone-700">Kategori Populer</h2>
           <p className="text-stone-400 mt-2 text-sm">Temukan koleksi busana muslimah sesuai kebutuhan Anda</p>
         </div>
@@ -65,7 +65,7 @@ export default async function HomePage() {
             <Link
               key={cat.id}
               href={`/categories/${cat.slug}`}
-              className="group relative shrink-0 overflow-hidden rounded-2xl transition-transform duration-300 hover:-translate-y-1"
+              className="group relative shrink-0 overflow-hidden transition-transform duration-300 hover:-translate-y-1"
               style={{ scrollSnapAlign: "start", width: 200, aspectRatio: "3 / 4" }}
             >
               {cat.image ? (
