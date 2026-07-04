@@ -13,8 +13,8 @@ export default function ContactForm() {
     try {
       const res = await fetch("/api/contact", { method: "POST", body: form })
       if (!res.ok) throw new Error("Failed")
-      setStatus("success")
       e.currentTarget.reset()
+      setStatus("success")
     } catch {
       setStatus("error")
     }
