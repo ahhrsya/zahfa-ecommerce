@@ -183,7 +183,7 @@ export default function ProductCard({
       {/* Image */}
       <Link
         href={`/products/${product.slug}`}
-        className="block relative aspect-[3/4] bg-stone-100 overflow-hidden rounded-sm"
+        className="block relative aspect-[4/3] bg-stone-100 overflow-hidden rounded-sm"
       >
         {product.images?.[0]?.url ? (
           <Image
