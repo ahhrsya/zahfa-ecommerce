@@ -58,26 +58,14 @@ export default function Header({ categories }: { categories: Category[] }) {
           <Image src="/logo.png" alt="Zahfa" width={260} height={80} className="h-20 w-auto" priority />
         </Link>
 
-        <form onSubmit={handleSearch} className="hidden lg:flex flex-1 max-w-xs mx-8">
-          <div className="relative w-full">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Cari produk..."
-              className="w-full pl-3 pr-9 py-1.5 border-b border-stone-300 bg-transparent text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:border-stone-900"
-            />
-            <button
-              type="submit"
-              className="absolute right-1 top-1/2 -translate-y-1/2 p-1 text-stone-400 hover:text-stone-800"
-              aria-label="Cari"
-            >
-              <Search className="w-3.5 h-3.5" />
-            </button>
-          </div>
-        </form>
-
         <div className="flex items-center gap-1">
+          <Link
+            href="/search"
+            className="hidden lg:block p-3 text-stone-500 hover:text-stone-800"
+            aria-label="Cari"
+          >
+            <Search className="w-5 h-5" />
+          </Link>
           <button
             className="lg:hidden p-3 text-stone-500 hover:text-stone-800"
             onClick={() => setSearchOpen(!searchOpen)}
