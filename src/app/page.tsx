@@ -141,7 +141,7 @@ export default async function HomePage() {
             </div>
             <DragScrollCarousel gap={20}>
               {featuredProducts.map((product) => (
-                <div key={product.id} style={{ scrollSnapAlign: "start", width: 260 }}>
+                <div key={product.id} className="snap-start w-[75vw] sm:w-[280px] md:w-[300px] lg:w-[320px] shrink-0">
                   <ProductCard product={product} isBest />
                 </div>
               ))}
