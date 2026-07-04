@@ -5,6 +5,7 @@ import { notFound } from "next/navigation"
 import { prisma } from "@/lib/prisma"
 import { SITE_NAME, SITE_URL } from "@/lib/site"
 import { Calendar, User, Clock, ChevronRight, ArrowLeft } from "lucide-react"
+import CopyLinkButton from "@/components/CopyLinkButton"
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Artikel Tidak Ditemukan" }
   }
 
-  const title = `${post.title} | ${SITE_NAME}`
+  const title = post.title
   const description = post.excerpt
     ? post.excerpt.slice(0, 160).replace(/\s+/g, " ").trim()
     : `Baca artikel ${post.title} di blog ${SITE_NAME}.`
@@ -293,23 +294,5 @@ function ShareButton({ href, label, children }: { href: string; label: string; c
       {children}
       <span className="hidden sm:inline">{label}</span>
     </a>
-  )
-}
-
-function CopyLinkButton({ url }: { url: string }) {
-  return (
-    <button
-      onClick={async () => {
-        await navigator.clipboard.writeText(url)
-        alert("Link berhasil disalin!")
-      }}
-      className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-stone-200 text-sm text-stone-600 hover:bg-stone-100 hover:border-stone-300 transition-all"
-      aria-label="Salin link"
-    >
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-      </svg>
-      <span className="hidden sm:inline">Salin Link</span>
-    </button>
   )
 }
