@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { Search, ShoppingBag, Heart, Menu, X, ChevronDown } from "lucide-react"
 
@@ -53,8 +54,8 @@ export default function Header({ categories }: { categories: Category[] }) {
           <Menu className="w-5 h-5" />
         </button>
 
-        <Link href="/" className="font-heading text-2xl tracking-wide text-stone-900">
-          Zahfa
+        <Link href="/" className="shrink-0">
+          <Image src="/logo.png" alt="Zahfa" width={100} height={32} className="h-8 w-auto" priority />
         </Link>
 
         <form onSubmit={handleSearch} className="hidden lg:flex flex-1 max-w-xs mx-8">
@@ -167,7 +168,7 @@ export default function Header({ categories }: { categories: Category[] }) {
 
           <div className="fixed top-0 left-0 bottom-0 w-72 bg-white shadow-xl z-50 flex flex-col">
             <div className="flex items-center justify-between px-6 py-5 border-b border-stone-100">
-              <span className="font-heading text-xl tracking-wide text-stone-900">Zahfa</span>
+              <Image src="/logo.png" alt="Zahfa" width={90} height={28} className="h-7 w-auto" />
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 className="p-3 text-stone-500 hover:text-stone-800"
