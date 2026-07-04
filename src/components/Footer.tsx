@@ -29,6 +29,7 @@ export default function Footer() {
             <h4 className="text-xs font-semibold text-stone-500 uppercase tracking-widest mb-5">Informasi</h4>
             <ul className="space-y-3">
               <li><Link href="/about" className="text-sm text-stone-400 hover:text-stone-900 transition-colors">Tentang Kami</Link></li>
+              <li><Link href="/blog" className="text-sm text-stone-400 hover:text-stone-900 transition-colors">Blog</Link></li>
               <li><Link href="/cara-belanja" className="text-sm text-stone-400 hover:text-stone-900 transition-colors">Cara Belanja</Link></li>
               <li><Link href="/faq" className="text-sm text-stone-400 hover:text-stone-900 transition-colors">FAQ</Link></li>
               <li><Link href="/kebijakan-privasi" className="text-sm text-stone-400 hover:text-stone-900 transition-colors">Kebijakan Privasi</Link></li>

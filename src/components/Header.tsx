@@ -148,6 +148,9 @@ export default function Header({ categories }: { categories: Category[] }) {
           <Link href="/about" className="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
             Tentang Kami
           </Link>
+          <Link href="/blog" className="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
+            Blog
+          </Link>
           <Link href="/contact" className="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors">
             Kontak
           </Link>
@@ -198,6 +201,13 @@ export default function Header({ categories }: { categories: Category[] }) {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Tentang Kami
+                </Link>
+                <Link
+                  href="/blog"
+                  className="block py-2.5 text-sm text-stone-700 hover:text-stone-900 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Blog
                 </Link>
                 <Link
                   href="/contact"
