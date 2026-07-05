@@ -4,12 +4,12 @@ import { SITE_NAME } from "@/lib/site"
 
 export const metadata: Metadata = {
   title: "Tentang Kami",
-  description: `Kenali ${SITE_NAME}, toko busana muslimah modern Indonesia yang menghadirkan gamis, hijab, dan pakaian syar'i berkualitas.`,
+    description: `Kenali ${SITE_NAME}, destinasi fashion wanita modern Indonesia yang menghadirkan gamis, hijab, dan pakaian wanita berkualitas.`,
   alternates: { canonical: "/about" },
   openGraph: {
     url: "/about",
     title: `Tentang Kami | ${SITE_NAME}`,
-    description: `Kenali ${SITE_NAME}, toko busana muslimah modern Indonesia yang menghadirkan gamis, hijab, dan pakaian syar'i berkualitas.`,
+  description: `Kenali ${SITE_NAME}, destinasi fashion wanita modern Indonesia yang menghadirkan gamis, hijab, dan pakaian wanita berkualitas.`,
   },
 }
 
@@ -27,7 +27,7 @@ const values = [
   {
     icon: Star,
     title: "Modern & Syar'i",
-    desc: "Mengusung gaya modern tanpa meninggalkan prinsip syar'i dalam berbusana.",
+    desc: "Mengusung gaya modern dengan desain yang elegan dan tetap sopan dalam berbusana.",
   },
   {
     icon: Truck,
@@ -43,8 +43,8 @@ export default function AboutPage() {
       <section className="py-16 md:py-24 bg-gradient-to-br from-amber-600 to-amber-700 text-white text-center px-4">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Tentang Zahfa</h1>
         <p className="text-lg text-white/80 max-w-2xl mx-auto">
-          Berawal dari kecintaan terhadap busana muslimah modern, Zahfa hadir untuk
-          memenuhi kebutuhan fashion wanita Indonesia yang ingin tampil anggun dan syar&apos;i.
+          Berawal dari kecintaan terhadap fashion wanita modern, Zahfa hadir untuk
+          memenuhi kebutuhan gaya wanita Indonesia yang ingin tampil anggun dan percaya diri.
         </p>
       </section>
 
@@ -55,18 +55,18 @@ export default function AboutPage() {
             <h2 className="text-2xl md:text-3xl font-bold text-stone-800 mb-4">Cerita Kami</h2>
             <div className="space-y-4 text-stone-600 leading-relaxed">
               <p>
-                Zahfa lahir pada tahun 2020 dari sebuah visi sederhana: menyediakan busana muslimah
+                Zahfa lahir pada tahun 2020 dari sebuah visi sederhana: menyediakan fashion wanita
                 yang tidak hanya menutup aurat, tetapi juga membuat setiap wanita merasa percaya diri
                 dan cantok.
               </p>
               <p>
                 Berawal dari toko kecil di rumah, kini Zahfa telah berkembang menjadi salah satu
-                destinasi belanja busana muslimah modern yang dipercaya oleh ribuan pelanggan di
+                destinasi belanja fashion wanita modern yang dipercaya oleh ribuan pelanggan di
                 seluruh Indonesia.
               </p>
               <p>
                 Setiap koleksi yang kami hadirkan melalui proses kurasi yang ketat untuk memastikan
-                kualitas bahan, kenyamanan, dan tentunya tetap sesuai dengan nilai-nilai islami.
+                kualitas bahan, kenyamanan, dan tentunya gaya yang elegan dan modern.
               </p>
             </div>
           </div>

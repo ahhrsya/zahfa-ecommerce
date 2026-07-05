@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = `${category.name} | ${SITE_NAME}`
   const description = category.description
     ? `${category.description} - Belanja koleksi ${category.name} terbaru di ${SITE_NAME}.`
-    : `Belanja koleksi ${category.name} terbaru dari ${SITE_NAME}. Busana muslimah modern, syar'i, dan berkualitas.`
+    : `Belanja koleksi ${category.name} terbaru dari ${SITE_NAME}. Fashion wanita modern dan berkualitas.`
 
   return {
     title,

@@ -8,18 +8,18 @@ import { ChevronLeft, ChevronRight, Calendar, User } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Blog & Inspirasi",
-  description: `Baca artikel inspirasi, tips fashion, dan gaya hidup muslimah terbaru dari ${SITE_NAME}. Temukan inspirasi OOTD hijab, gaya busana muslimah modern, dan tren fashion syar'i terkini.`,
+  description: `Baca artikel inspirasi, tips fashion, dan gaya hidup terbaru dari ${SITE_NAME}. Temukan inspirasi OOTD, gaya fashion modern, dan tren terkini.`,
   alternates: { canonical: "/blog" },
   openGraph: {
     url: "/blog",
     title: `Blog & Inspirasi | ${SITE_NAME}`,
-    description: `Baca artikel inspirasi, tips fashion, dan gaya hidup muslimah terbaru dari ${SITE_NAME}.`,
+    description: `Baca artikel inspirasi, tips fashion, dan gaya hidup terbaru dari ${SITE_NAME}.`,
     images: [{ url: `${SITE_URL}/uploads/banners/hero1.png`, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: `Blog & Inspirasi | ${SITE_NAME}`,
-    description: `Baca artikel inspirasi, tips fashion, dan gaya hidup muslimah terbaru dari ${SITE_NAME}.`,
+    description: `Baca artikel inspirasi, tips fashion, dan gaya hidup terbaru dari ${SITE_NAME}.`,
     images: [`${SITE_URL}/uploads/banners/hero1.png`],
   },
 }
@@ -67,8 +67,8 @@ export default async function BlogPage({
             Blog & Inspirasi
           </h1>
           <p className="text-lg text-white/80 max-w-2xl mx-auto">
-            Inspirasi dan tips seputar busana muslimah modern, hijab styling,
-            OOTD kondangan, dan tren fashion syar&apos;i terbaru.
+            Inspirasi dan tips seputar fashion wanita modern, gaya sehari-hari,
+            OOTD kondangan, dan tren fashion terbaru.
           </p>
         </div>
       </section>

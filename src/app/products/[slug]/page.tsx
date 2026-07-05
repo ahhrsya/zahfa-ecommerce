@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = `${product.name} | ${SITE_NAME}`
   const description = product.description
     ? product.description.slice(0, 160).replace(/\s+/g, " ").trim()
-    : `Beli ${product.name} di ${SITE_NAME}. Busana muslimah modern, syar'i, dan berkualitas.`
+    : `Beli ${product.name} di ${SITE_NAME}. Fashion wanita modern dan berkualitas.`
   const image = product.images[0]?.url
     ? `${SITE_URL}${product.images[0].url}`
     : `${SITE_URL}/uploads/banners/hero1.png`

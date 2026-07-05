@@ -15,12 +15,12 @@ export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: "Koleksi Produk",
-  description: `Jelajahi koleksi lengkap busana muslimah modern dari ${SITE_NAME}. Gamis, hijab, dress syar'i, dan aksesoris muslimah berkualitas.`,
+  description: `Jelajahi koleksi lengkap fashion wanita modern dari ${SITE_NAME}. Gamis, hijab, dress, dan aksesoris wanita berkualitas.`,
   alternates: { canonical: "/products" },
   openGraph: {
     url: "/products",
     title: `Koleksi Produk | ${SITE_NAME}`,
-    description: `Jelajahi koleksi lengkap busana muslimah modern dari ${SITE_NAME}.`,
+    description: `Jelajahi koleksi lengkap fashion wanita modern dari ${SITE_NAME}.`,
   },
 }
 

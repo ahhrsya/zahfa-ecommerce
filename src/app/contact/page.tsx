@@ -8,7 +8,7 @@ import ContactForm from "./ContactForm"
 
 export const metadata: Metadata = {
   title: "Hubungi Kami",
-  description: `Hubungi tim ${SITE_NAME} untuk pertanyaan, bantuan, atau kerja sama. Kami siap membantu kebutuhan busana muslimah Anda.`,
+  description: `Hubungi tim ${SITE_NAME} untuk pertanyaan, bantuan, atau kerja sama. Kami siap membantu kebutuhan fashion Anda.`,
   alternates: { canonical: "/contact" },
   openGraph: {
     url: "/contact",

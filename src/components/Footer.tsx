@@ -9,8 +9,8 @@ export default function Footer() {
           <div className="md:col-span-1">
             <Image src="/logo.png" alt="Zahfa" width={260} height={80} className="h-20 w-auto mb-4" />
             <p className="text-sm text-stone-400 leading-relaxed">
-              Zahfa adalah destinasi busana muslimah modern yang menyediakan berbagai koleksi pakaian
-              syar&apos;i dengan gaya terkini.
+              Zahfa adalah destinasi fashion wanita modern yang menyediakan berbagai koleksi pakaian
+              dengan gaya terkini.
             </p>
           </div>
 

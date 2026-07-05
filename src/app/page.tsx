@@ -49,7 +49,7 @@ export default async function HomePage() {
     {
       id: "hero-1",
       title: "Koleksi Terbaru",
-      subtitle: "Temukan busana muslimah modern & syar'i pilihan untuk Anda",
+      subtitle: "Temukan koleksi fashion wanita modern pilihan untuk Anda",
       image: "/zahfa/hero-1.png",
       link: "/products",
     },
@@ -71,7 +71,7 @@ export default async function HomePage() {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-6 text-center mb-10">
           <h2 className="text-2xl md:text-3xl text-stone-700">Kategori Populer</h2>
-          <p className="text-stone-400 mt-2 text-sm">Temukan koleksi busana muslimah sesuai kebutuhan Anda</p>
+          <p className="text-stone-400 mt-2 text-sm">Temukan koleksi fashion wanita sesuai kebutuhan Anda</p>
         </div>
         <DragScrollCarousel gap={16}>
           {categories.map((cat) => (

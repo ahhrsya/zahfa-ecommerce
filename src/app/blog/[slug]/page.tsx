@@ -179,7 +179,7 @@ export default async function BlogPostPage({ params }: Props) {
               <div>
                 <p className="font-semibold text-stone-800">{post.author}</p>
                 <p className="text-sm text-stone-500 mt-1">
-                  Penulis artikel di blog {SITE_NAME}. Menulis seputar fashion muslimah, tips gaya hijab, dan inspirasi OOTD.
+                  Penulis artikel di blog {SITE_NAME}. Menulis seputar fashion wanita, tips gaya, dan inspirasi OOTD.
                 </p>
               </div>
             </div>

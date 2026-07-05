@@ -10,7 +10,7 @@ interface Props {
 
 export const metadata: Metadata = {
   title: "Cari Produk",
-  description: `Cari produk busana muslimah favorit Anda di ${SITE_NAME}. Temukan gamis, hijab, dan dress syar'i terbaru.`,
+  description: `Cari produk fashion favorit Anda di ${SITE_NAME}. Temukan gamis, hijab, dan dress terbaru.`,
   alternates: { canonical: "/search" },
   robots: {
     index: false,

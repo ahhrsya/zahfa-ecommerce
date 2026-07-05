@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: "Koleksi",
-  description: `Jelajahi koleksi pilihan ${SITE_NAME}. Temukan berbagai koleksi busana muslimah modern pilihan untuk tampilan terbaik Anda.`,
+  description: `Jelajahi koleksi pilihan ${SITE_NAME}. Temukan berbagai koleksi fashion wanita modern pilihan untuk tampilan terbaik Anda.`,
   alternates: { canonical: "/koleksi" },
   openGraph: {
     url: "/koleksi",
@@ -88,7 +88,7 @@ export default async function KoleksiPage() {
           <p className="text-white/60 text-sm uppercase tracking-widest mb-3">Koleksi</p>
           <h1 className="text-4xl md:text-6xl font-bold mb-4">Koleksi Zahfa</h1>
           <p className="text-white/70 text-lg max-w-xl mx-auto">
-            Jelajahi berbagai koleksi busana muslimah modern pilihan kami
+            Jelajahi berbagai koleksi fashion wanita modern pilihan kami
           </p>
         </section>
       )}
@@ -125,7 +125,7 @@ export default async function KoleksiPage() {
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl text-white mb-4">Dapatkan Tampilan Terbaikmu</h2>
           <p className="text-stone-400 mb-8 text-base">
-            Jelajahi koleksi lengkap busana muslimah modern Zahfa. Dapatkan diskon 20% untuk pembelian pertama!
+            Jelajahi koleksi lengkap fashion wanita modern Zahfa. Dapatkan diskon 20% untuk pembelian pertama!
           </p>
           <Link
             href="/products"
