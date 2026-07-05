@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 }
 
 export default async function HomePage() {
-  const [categories, latestProducts, featuredProducts] = await Promise.all([
+  const [categories, latestProducts, featuredProducts, banners] = await Promise.all([
     prisma.category.findMany({
       where: { isActive: true },
       orderBy: { sortOrder: "asc" },
@@ -43,29 +43,16 @@ export default async function HomePage() {
         category: true,
       },
     }),
+    prisma.banner.findMany({
+      where: { isActive: true, type: "hero" },
+      orderBy: { sortOrder: "asc" },
+    }),
   ])
-
-  const heroBanners = [
-    {
-      id: "hero-1",
-      title: "Koleksi Terbaru",
-      subtitle: "Temukan koleksi fashion wanita modern pilihan untuk Anda",
-      image: "/zahfa/hero-1.png",
-      link: "/products",
-    },
-    {
-      id: "hero-2",
-      title: "Diskon Launching 20%",
-      subtitle: "Dapatkan potongan harga spesial untuk setiap pembelian via WhatsApp",
-      image: "/zahfa/hero-2.png",
-      link: "/products",
-    },
-  ]
 
   return (
     <div>
       {/* Hero Slider */}
-      <HeroSlider banners={heroBanners} />
+      <HeroSlider banners={banners} />
 
       {/* Kategori Populer — Carousel */}
       <section className="py-16">

@@ -47,7 +47,7 @@ export default function BannerForm({ banner }: { banner?: any }) {
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Gambar</label>
-        {banner?.image && <img src={banner.image} alt="" className="w-48 h-32 object-cover rounded-lg mb-2 border" />}
+        {banner?.image && <img src={banner.image} alt={banner.title || "Preview banner"} className="w-48 h-32 object-cover rounded-lg mb-2 border" />}
         <input type="file" name="image" accept="image/*" required={!banner} className="text-sm" />
       </div>
       <div className="grid grid-cols-2 gap-4">

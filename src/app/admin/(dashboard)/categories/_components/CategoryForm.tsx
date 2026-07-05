@@ -31,7 +31,7 @@ export default function CategoryForm({ category }: { category?: any }) {
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Gambar</label>
-        {category?.image && <img src={category.image} alt="" className="w-24 h-24 object-cover rounded-lg mb-2 border" />}
+        {category?.image && <img src={category.image} alt={category.name || "Preview kategori"} className="w-24 h-24 object-cover rounded-lg mb-2 border" />}
         <input type="file" name="image" accept="image/*" className="text-sm" />
       </div>
       <div className="grid grid-cols-2 gap-4">

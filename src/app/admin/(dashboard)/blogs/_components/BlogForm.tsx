@@ -76,7 +76,7 @@ export default function BlogForm({ post }: { post?: any }) {
         <label className="block text-sm font-medium text-gray-700 mb-1">Gambar Featured</label>
         {post?.image && (
           <div className="relative w-48 h-32 rounded-lg overflow-hidden mb-2 border">
-            <img src={post.image} alt="" className="w-full h-full object-cover" />
+            <img src={post.image} alt={post.title || "Preview artikel"} className="w-full h-full object-cover" />
           </div>
         )}
         <input type="file" name="image" accept="image/*" className="text-sm text-gray-600 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100" />

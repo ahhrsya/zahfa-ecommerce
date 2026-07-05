@@ -253,7 +253,7 @@ export default function ProductForm({
         {images.map((img, i) => (
           <div key={i} className="flex items-center gap-3 mb-2 p-3 bg-gray-50 rounded-lg">
             {img.url && (
-              <img src={img.url} alt="" className="w-16 h-16 object-cover rounded-lg border" />
+              <img src={img.url} alt="Preview gambar produk" className="w-16 h-16 object-cover rounded-lg border" />
             )}
             <div className="flex-1">
               <input

@@ -31,7 +31,7 @@ export default async function BannersPage() {
             {banners.map((b) => (
               <tr key={b.id} className="border-t border-gray-100 hover:bg-gray-50">
                 <td className="px-4 py-3">
-                  <img src={b.image} alt={b.title || ""} className="w-24 h-16 object-cover rounded-lg" />
+                  <img src={b.image} alt={b.title || "Preview banner"} className="w-24 h-16 object-cover rounded-lg" />
                 </td>
                 <td className="px-4 py-3 font-medium text-gray-900">{b.title || "-"}</td>
                 <td className="px-4 py-3">
