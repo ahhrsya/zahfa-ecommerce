@@ -44,7 +44,7 @@ export default async function HomePage() {
       },
     }),
     prisma.banner.findMany({
-      where: { isActive: true, type: "hero" },
+      where: { isActive: true },
       orderBy: { sortOrder: "asc" },
     }),
   ])
